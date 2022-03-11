@@ -97,11 +97,6 @@ Print
 ctrl + Print
      xfce4-screenshooter
 
-#Gnome-Screenshot
-ctrl + shift + Print
-     gnome-screenshot -i
-
-
 #################################################################
 #     MULTIMEDIA KEYS
 #################################################################
