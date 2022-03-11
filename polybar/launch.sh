@@ -12,12 +12,16 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-monitors=$(xrandr | grep "HDMI-1 connected")
+count=$(xrandr | grep " connected" | wc -l)
 
-if [ -n "$monitors" ]; then
+if [ $count -eq 2 ]; then
     polybar catppuccin -c ~/.config/polybar/polybar.ini &
     polybar catppuccin2 -c ~/.config/polybar/polybar.ini &
 else
-    polybar catppuccin3 -c ~/.config/polybar/polybar.ini &
+    hdmi=$(xrandr | grep "HDMI-1 connected")
+    if [ -n "$hdmi" ]; then
+        polybar catppuccin -c ~/.config/polybar/polybar.ini &
+    else
+        polybar catppuccin3 -c ~/.config/polybar/polybar.ini &
+    fi
 fi
-;;
