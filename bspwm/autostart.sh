@@ -24,6 +24,7 @@ run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
 run nm-applet &
 run xfce4-power-manager &
+run xfce4-screensaver &
 numlockx on &
 blueberry-tray &
 picom --experimental-backends --config $HOME/.config/bspwm/picom.conf &
