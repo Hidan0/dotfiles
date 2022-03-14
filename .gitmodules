@@ -1,0 +1,3 @@
+[submodule "nvim/mynvim"]
+	path = nvim/mynvim
+	url = git@github.com:Hidan0/mynvim.git

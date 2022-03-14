@@ -88,9 +88,16 @@ alias yup='yay -Syu'
 alias daily='yay -Sy'
 alias discord='discord --no-sandbox'
 
+# University
+alias anno1='cd ~/University/Anno1/'
+alias anno2='cd ~/University/Anno2/'
+alias sisop='cd ~/University/Anno2/SistemiOperativi/'
+alias sad='cd ~/University/Anno2/StatisticaAnalisiDati/'
+
 #fix obvious typo's
 alias cd..='cd ..'
 alias pdw="pwd"
+alias nivm="nvim"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -331,6 +338,8 @@ alias personal='cp -Rf /personal/* ~'
 
 [[ -f ~/.bashrc-personal ]] && . ~/.bashrc-personal
 
+export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/Tools/lua-language-server/bin:/home/hidan0/.local/bin
+
 # reporting tools - install when not installed
 #neofetch
 #screenfetch
@@ -345,3 +354,5 @@ pfetch
 #sysinfo
 #sysinfo-retro
 #cpufetch
+
+alias luamake=/home/hidan0/Tmp/lua-language-server/3rd/luamake/luamake
