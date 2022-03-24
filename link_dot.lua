@@ -23,9 +23,9 @@ for file in lfs.dir(PATH) do
 
 			local CONF = PATH .. "/" .. file
 			for c_dir in lfs.dir(CONF) do
-        if c_dir == "." or c_dir == ".." then
-          goto continue
-        end
+				if c_dir == "." or c_dir == ".." then
+					goto continue
+				end
 				print("Processing '" .. c_dir .. "'")
 				if lfs.attributes(HOME .. ".config/" .. c_dir, "mode") == "directory" then -- works with links
 					print("Found directory " .. c_dir)
@@ -35,9 +35,9 @@ for file in lfs.dir(PATH) do
 				else
 					print("'" .. c_dir .. "' not found.")
 				end
-        print("Linking " .. c_dir)
+				print("Linking " .. c_dir)
 				lfs.link(CONF .. "/" .. c_dir, HOME .. ".config/" .. c_dir, true)
-        ::continue::
+				::continue::
 			end
 		elseif lfs.attributes(file, "mode") == "file" then
 			-- files for $HOME
@@ -50,8 +50,8 @@ for file in lfs.dir(PATH) do
 			else
 				print("'" .. file .. "' not found.")
 			end
-      print("Linking " .. file)
-		  lfs.link(PATH .. "/" .. file, HOME .. file, true)
+			print("Linking " .. file)
+			lfs.link(PATH .. "/" .. file, HOME .. file, true)
 		end
 	end
 end
