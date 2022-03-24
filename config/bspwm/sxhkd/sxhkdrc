@@ -34,6 +34,10 @@ super + Return
 super + Escape
     xkill
 
+# Open nvim
+super + n 
+    alacritty --command nvim 
+
 #################################################################
 # SUPER + SHIFT KEYS
 #################################################################
