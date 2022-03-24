@@ -29,7 +29,7 @@ function __venv_ps1()
     then
         local VENV="${VIRTUAL_ENV##*/}"
 
-        echo -e "[${VENV}] "
+        echo -e " ${VENV} "
     fi
 }
 
@@ -93,6 +93,12 @@ alias anno1='cd ~/University/Anno1/'
 alias anno2='cd ~/University/Anno2/'
 alias sisop='cd ~/University/Anno2/SistemiOperativi/'
 alias sad='cd ~/University/Anno2/StatisticaAnalisiDati/'
+
+# PYTHON Virual envs using virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=
+source $HOME/.local/bin/virtualenvwrapper.sh
+
 
 #fix obvious typo's
 alias cd..='cd ..'
@@ -338,7 +344,7 @@ alias personal='cp -Rf /personal/* ~'
 
 [[ -f ~/.bashrc-personal ]] && . ~/.bashrc-personal
 
-export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/Tools/lua-language-server/bin:/home/hidan0/.local/bin
+export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 
 # reporting tools - install when not installed
 #neofetch
@@ -354,5 +360,3 @@ pfetch
 #sysinfo
 #sysinfo-retro
 #cpufetch
-
-alias luamake=/home/hidan0/Tmp/lua-language-server/3rd/luamake/luamake
