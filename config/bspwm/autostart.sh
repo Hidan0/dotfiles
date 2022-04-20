@@ -18,7 +18,7 @@ $HOME/.config/polybar/launch.sh &
 $HOME/.screenlayout/display.sh
 
 # feh --bg-scale $HOME/Pictures/Wallpapers/astronaut-and-jellyfish-wallpaper-1920x1080_48.jpg &
-feh --bg-scale $HOME/Pictures/Wallpapers/dark-side.jpg &
+feh --bg-scale $HOME/Pictures/Wallpapers/evening-sky.png &
 #dex $HOME/.config/autostart/arcolinux-welcome-app.desktop
 xsetroot -cursor_name left_ptr &
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
@@ -31,8 +31,6 @@ blueberry-tray &
 picom --experimental-backends --config $HOME/.config/bspwm/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
-xinput --map-to-output 'CUST0000:00 04F3:2A81 Stylus Pen (0)' eDP-1
-xinput --map-to-output 'CUST0000:00 04F3:2A81 Stylus Eraser (0)' eDP-1
 # run volumeicon &
 flameshot &
 
