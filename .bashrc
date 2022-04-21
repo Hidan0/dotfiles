@@ -14,8 +14,6 @@
 
 export HISTCONTROL=ignoreboth:erasedups
 
-# Make nano the default editor
-
 export EDITOR='nvim'
 export VISUAL='nvim'
 
@@ -207,18 +205,6 @@ shopt -s dotglob
 shopt -s histappend # do not overwrite history
 shopt -s expand_aliases # expand aliases
 
-#youtube-dl
-alias yta-aac="youtube-dl --extract-audio --audio-format aac "
-alias yta-best="youtube-dl --extract-audio --audio-format best "
-alias yta-flac="youtube-dl --extract-audio --audio-format flac "
-alias yta-m4a="youtube-dl --extract-audio --audio-format m4a "
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 "
-alias yta-opus="youtube-dl --extract-audio --audio-format opus "
-alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
-alias yta-wav="youtube-dl --extract-audio --audio-format wav "
-
-alias ytv-best="youtube-dl -f bestvideo+bestaudio "
-
 #Recent Installed Packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
@@ -234,24 +220,6 @@ alias rg="rg --sort path"
 
 #get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
-
-#nano for important configuration files
-#know what you do in these files
-alias nlightdm="sudo $EDITOR /etc/lightdm/lightdm.conf"
-alias npacman="sudo $EDITOR /etc/pacman.conf"
-alias ngrub="sudo $EDITOR /etc/default/grub"
-alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
-alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
-alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
-alias narcomirrorlist='sudo nano /etc/pacman.d/arcolinux-mirrorlist'
-alias nsddm="sudo $EDITOR /etc/sddm.conf"
-alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
-alias nfstab="sudo $EDITOR /etc/fstab"
-alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
-alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
-alias ngnupgconf="sudo nano /etc/pacman.d/gnupg/gpg.conf"
-alias nb="$EDITOR ~/.bashrc"
-alias nz="$EDITOR ~/.zshrc"
 
 #gpg
 #verify signature for isos
@@ -321,18 +289,6 @@ ex ()
   fi
 }
 
-#arcolinux applications
-alias att="arcolinux-tweak-tool"
-alias adt="arcolinux-desktop-trasher"
-alias abl="arcolinux-betterlockscreen"
-alias agm="arcolinux-get-mirrors"
-alias amr="arcolinux-mirrorlist-rank-info"
-alias aom="arcolinux-osbeck-as-mirror"
-alias ars="arcolinux-reflector-simple"
-alias atm="arcolinux-tellme"
-alias avs="arcolinux-vbox-share"
-alias awa="arcolinux-welcome-app"
-
 #remove
 alias rmgitcache="rm -r ~/.cache/git"
 
@@ -346,17 +302,6 @@ alias personal='cp -Rf /personal/* ~'
 
 export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 
-# reporting tools - install when not installed
-#neofetch
-#screenfetch
-#alsi
-#paleofetch
-#fetch
-#hfetch
-#sfetch
-#ufetch
-#ufetch-arco
 pfetch
-#sysinfo
-#sysinfo-retro
-#cpufetch
+
+[ -x /bin/fish ] && SHELL=/bin/fish exec fish
