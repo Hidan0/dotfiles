@@ -3,7 +3,7 @@
 local lfs = require("lfs")
 
 local function is_in_blacklist(file)
-	for _, value in pairs({ ".", "..", ".git", ".gitmodules", "LICENSE", "README.md", "link_dot.lua" }) do
+	for _, value in pairs({ ".", "..", ".git", ".gitmodules", ".gitignore", "LICENSE", "README.md", "link_dot.lua" }) do
 		if file == value then
 			return true
 		end
