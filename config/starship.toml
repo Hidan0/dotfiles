@@ -1,0 +1,14 @@
+right_format = "$time"
+
+add_newline = false
+
+[character] # The name of the module we are configuring is "character"
+success_symbol = "[•](bold blue)[❯](bold green)"
+error_symbol = "[•](bold blue)[✗](bold red)"
+vicmd_symbol = "[•](bold blue)[](bold cyan)"
+
+[time]
+time_format = "%H:%M"
+# format = "[\\[$time\\]](purple)"
+format = "[├$time┤](bold purple)"
+disabled = false

@@ -5,11 +5,6 @@ set fish_greeting
 set TERM "xterm-256color"
 set EDITOR "nvim"
 
-# Set VI mode
-function fish_user_key_bindings
-  fish_vi_key_bindings
-end
-
 # ALIASES
 
 alias vim='nvim'
