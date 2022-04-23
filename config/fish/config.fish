@@ -10,12 +10,17 @@ set EDITOR "nvim"
 alias vim='nvim'
 alias vi='nvim'
 
-#list
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -la'
-alias l='ls'
-alias l.="ls -A | egrep '^\.'"
+#list - ls replaced with modern tool
+# alias ls='ls --color=auto'
+# alias la='ls -a'
+# alias ll='ls -la'
+# alias l='ls'
+# alias l.="ls -A | egrep '^\.'"
+alias ls='exa --color=always --group-directories-first'
+alias ll='exa -la --color=always --group-directories-first'
+alias la='exa -a --color=always --group-directories-first'
+alias lt='exa -aT --color=always --group-directories-first'
+alias l.="exa -a | egrep '^\.'"
 
 #fix obvious typo's
 alias cd..='cd ..'
