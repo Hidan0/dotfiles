@@ -68,6 +68,12 @@ alias push='git push origin'
 # grub
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
+alias clr='clear'
+
+function sudo!!
+  eval "sudo $history[1]"
+end
+
 # starship propt 
 starship init fish | source
 

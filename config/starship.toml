@@ -8,7 +8,7 @@ error_symbol = "[•](bold blue)[✗](bold red)"
 vicmd_symbol = "[•](bold blue)[](bold cyan)"
 
 [time]
-time_format = "%H:%M"
+time_format = "%H:%M:%S"
 # format = "[\\[$time\\]](purple)"
 format = "[├$time┤](bold purple)"
 disabled = false
