@@ -18,7 +18,7 @@ if [ $count -eq 2 ]; then
     polybar catppuccin -c ~/.config/polybar/polybar2.ini &
     polybar catppuccin2 -c ~/.config/polybar/polybar2.ini &
 else
-    hdmi=$(xrandr | grep "HDMI-1 connected")
+    hdmi=$(xrandr | grep "HDMI1 connected")
     if [ -n "$hdmi" ]; then
         polybar catppuccin -c ~/.config/polybar/polybar2.ini &
     else

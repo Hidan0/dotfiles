@@ -19,7 +19,6 @@ $HOME/.screenlayout/display.sh
 
 # feh --bg-scale $HOME/Pictures/Wallpapers/astronaut-and-jellyfish-wallpaper-1920x1080_48.jpg &
 feh --bg-scale $HOME/Pictures/Wallpapers/evening-sky.png &
-#dex $HOME/.config/autostart/arcolinux-welcome-app.desktop
 xsetroot -cursor_name left_ptr &
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
