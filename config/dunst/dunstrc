@@ -1,0 +1,29 @@
+[global]
+    frame_color = "#96CDFB"
+    separator_color= frame
+
+    font = Hack 12
+
+    corner_radius = 8
+
+    icon_path = /usr/share/icons/Papirus-Light/16x16/status/:/usr/share/icons/Papirus-Light/16x16/devices/:/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+
+    browser = /usr/bin/brave
+
+    width = 400
+    height = 400
+
+    transparency = 25
+
+[urgency_low]
+    background = "#1E1E2E"
+    foreground = "#D9E0EE"
+
+[urgency_normal]
+    background = "#1E1E2E"
+    foreground = "#D9E0EE"
+
+[urgency_critical]
+    background = "#1E1E2E"
+    foreground = "#D9E0EE"
+    frame_color = "#F8BD96"
