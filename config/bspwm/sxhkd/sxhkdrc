@@ -38,6 +38,11 @@ super + Escape
 super + n 
     alacritty --command nvim 
 
+super + c 
+    rofi -show calc -modi calc -no-show-match -no-sort
+
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
 #################################################################
 # SUPER + SHIFT KEYS
 #################################################################
@@ -45,7 +50,8 @@ super + n
 #File-Manager
 super + shift + Return
 	thunar
-
+super + shift + {1-9,0}
+    id=$(bspc query -N -n); bspc node -d ^{1-9,10}; bspc node -f ${id}}
 #Keyboard dependent
 #File-Manager
 #super + shift + KP_Enter
@@ -88,12 +94,11 @@ Print
 
 #Raises volume
 XF86AudioRaiseVolume
-    amixer set Master 10%+
+    ~/.dotfiles/scripts/changevolume.sh up
 
 #Lowers volume
 XF86AudioLowerVolume
-    amixer set Master 10%-
-
+    ~/.dotfiles/scripts/changevolume.sh down
 #Mute
 XF86AudioMute
     amixer -D pulse set Master 1+ toggle
@@ -125,12 +130,11 @@ XF86AudioStop
 
 #Brightness up
 XF86MonBrightnessUp
-   sudo xbacklight -inc 5
+    ~/.dotfiles/scripts/changebrightness.sh up 
 
 #Brightness down
 XF86MonBrightnessDown
-   sudo xbacklight -dec 5
-
+    ~/.dotfiles/scripts/changebrightness.sh down 
 #########################
 #        POLYBAR        #
 #########################
