@@ -41,6 +41,9 @@ super + n
 super + c 
     rofi -show calc -modi calc -no-show-match -no-sort
 
+super + e
+    rofi -show emoji -modi emoji
+
 super + {1-9,0}
 	bspc desktop -f '^{1-9,10}'
 #################################################################
