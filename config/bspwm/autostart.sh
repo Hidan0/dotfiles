@@ -22,15 +22,15 @@ feh --bg-scale $HOME/Pictures/Wallpapers/evening-sky.png &
 xsetroot -cursor_name left_ptr &
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
-run nm-applet &
+# run nm-applet &
 run xfce4-power-manager &
 run xfce4-screensaver &
 numlockx on &
 blueberry-tray &
 picom --experimental-backends --config $HOME/.config/bspwm/picom.conf &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 dunst &
+optimus-manager-qt &
 # run volumeicon &
 flameshot &
 

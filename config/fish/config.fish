@@ -57,6 +57,7 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 
 # git 
 alias addall='git add .' # Git Add All
+alias gadd='git add ' # Git Add
 alias branch='git branch'
 alias gclone='git clone'
 alias commit='git commit -m'
@@ -73,6 +74,8 @@ alias clr='clear'
 function sudo!!
   eval "sudo $history[1]"
 end
+
+alias welcome='tmux new -s default'
 
 # starship propt 
 starship init fish | source
