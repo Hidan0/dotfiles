@@ -66,10 +66,6 @@ super + shift + {1-9,0}
 super + shift + d
   rofi -show drun
 
-#reload sxhkd:
-super + shift + s
-	pkill -USR1 -x sxhkd
-
 #Keyboard dependent
 #super + shift + KP_Enter
 #	thunar
