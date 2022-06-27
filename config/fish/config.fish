@@ -9,6 +9,7 @@ set EDITOR "nvim"
 
 alias vim='nvim'
 alias vi='nvim'
+alis hx='helix'
 
 #list - ls replaced with modern tool
 # alias ls='ls --color=auto'
