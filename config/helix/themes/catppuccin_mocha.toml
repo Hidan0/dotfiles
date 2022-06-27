@@ -16,7 +16,7 @@
 "variable.other.member" = "teal"
 "label" = "sapphire" # used for lifetimes
 "punctuation" = "overlay2"
-"keyword" = "mauve"
+"keyword" = { fg = "mauve", modifiers = ["bold"]}
 "keyword.control.conditional" = { fg = "mauve" }
 "operator" = "sky"
 "function" = "blue"

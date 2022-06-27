@@ -9,3 +9,6 @@ insert = "bar"
 
 [keys.insert]
 j = { k = "normal_mode" }
+
+[keys.normal]
+"space" = { e = "file_picker_in_current_directory"}
