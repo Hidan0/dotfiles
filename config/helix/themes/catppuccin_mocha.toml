@@ -54,6 +54,9 @@
 
 "ui.statusline" = { fg = "text", bg = "mantle" }
 "ui.statusline.inactive" = { fg = "surface1", bg = "mantle" }
+"ui.statusline.insert" = {fg = "green" }
+"ui.statusline.normal" = {fg = "blue"}
+"ui.statusline.select" = {fg = "mauve"}
 
 "ui.popup" = { fg = "text", bg = "surface0" }
 "ui.window" = { fg = "crust" }

@@ -2,13 +2,17 @@ theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
-true-color = true
+color-modes = true
 
 [editor.cursor-shape]
 insert = "bar"
+select = "underline"
 
 [keys.insert]
 j = { k = "normal_mode" }
 
 [keys.normal]
 "space" = { e = "file_picker_in_current_directory"}
+
+[editor.indent-guides]
+render = true
