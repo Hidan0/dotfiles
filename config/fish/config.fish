@@ -3,12 +3,12 @@
 # export
 set fish_greeting
 set TERM "xterm-256color"
-set EDITOR "nvim"
+set EDITOR "helix"
 
 # ALIASES
 
-alias vim='nvim'
-alias vi='nvim'
+# alias vim='nvim'
+# alias vi='nvim'
 alias hx='helix'
 
 #list - ls replaced with modern tool
@@ -21,7 +21,7 @@ alias ls='exa --color=always --group-directories-first'
 alias ll='exa -la --color=always --group-directories-first'
 alias la='exa -a --color=always --group-directories-first'
 alias lt='exa -aT --color=always --group-directories-first'
-alias l.="exa -a | egrep '^\.'"
+alias l.="exa -a | grep -E '^\.'"
 
 #fix obvious typo's
 alias cd..='cd ..'
@@ -30,7 +30,7 @@ alias nivm="nvim"
 
 # Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
+# alias egrep='grep -E --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # package man
@@ -77,6 +77,9 @@ function sudo!!
 end
 
 alias welcome='tmux new -s default'
+alias tas='tmux attach-session -t'
+
+alias lf='~/.dotfiles/scripts/lfub.sh'
 
 # starship propt 
 starship init fish | source
