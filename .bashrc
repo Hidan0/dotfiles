@@ -21,53 +21,62 @@ export VISUAL='nvim'
 # Bash customization:
 #  - set the title to "<user>@<host>: <dir>"
 #
-function __venv_ps1()
-{
-    if [[ -n "${VIRTUAL_ENV}" ]]
-    then
-        local VENV="${VIRTUAL_ENV##*/}"
+# function __venv_ps1()
+# {
+#     if [[ -n "${VIRTUAL_ENV}" ]]
+#     then
+#         local VENV="${VIRTUAL_ENV##*/}"
 
-        echo -e " ${VENV} "
-    fi
-}
+#         echo -e " ${VENV} "
+#     fi
+# }
 
-PS1="\[\e]0;\u@\h: \w\a\]"
+# PS1="\[\e]0;\u@\h: \w\a\]"
 
-#  - start composing custom prompt
-#
-PS1="${PS1}\n"                 # New line
+# #  - start composing custom prompt
+# #
+# PS1="${PS1}\n"                 # New line
 
-PS1="${PS1}\[\e[32m\]"         # Color: Green
-# PS1="${PS1}\u@\h "             # Write: <user>@<host>
-PS1="${PS1}\[\e[33m\]"         # Color: Brownish yellow
-PS1="${PS1} \w"                 # Write: Current working directory
+# PS1="${PS1}\[\e[32m\]"         # Color: Green
+# # PS1="${PS1}\u@\h "             # Write: <user>@<host>
+# PS1="${PS1}\[\e[33m\]"         # Color: Brownish yellow
+# PS1="${PS1} \w"                 # Write: Current working directory
 
-#  - add GIT information (https://github.com/git/git)
-#
-GIT_EXEC_PATH="$(git --exec-path 2>/dev/null)"
+# #  - add GIT information (https://github.com/git/git)
+# #
+# GIT_EXEC_PATH="$(git --exec-path 2>/dev/null)"
 
-COMPLETION_PATH="${GIT_EXEC_PATH%/libexec/git-core}"
-COMPLETION_PATH="${COMPLETION_PATH%/lib/git-core}"
-COMPLETION_PATH="${COMPLETION_PATH}/share/git-core/contrib/completion"
+# COMPLETION_PATH="${GIT_EXEC_PATH%/libexec/git-core}"
+# COMPLETION_PATH="${COMPLETION_PATH%/lib/git-core}"
+# COMPLETION_PATH="${COMPLETION_PATH}/share/git-core/contrib/completion"
 
-if test -f "${COMPLETION_PATH}/git-prompt.sh"
-then
-    source "${COMPLETION_PATH}/git-completion.bash"
-    source "${COMPLETION_PATH}/git-prompt.sh"
+# if test -f "${COMPLETION_PATH}/git-prompt.sh"
+# then
+#     source "${COMPLETION_PATH}/git-completion.bash"
+#     source "${COMPLETION_PATH}/git-prompt.sh"
 
-    PS1="${PS1}\[\e[36m\]"     # Color: Cyan
-    PS1="${PS1}"'`__git_ps1`'  # Write: Current working GIT branch
-fi
+#     PS1="${PS1}\[\e[36m\]"     # Color: Cyan
+#     PS1="${PS1}"'`__git_ps1`'  # Write: Current working GIT branch
+# fi
 
-PS1="${PS1}\n"                 # New line
+# PS1="${PS1}\n"                 # New line
+# PS1="${PS1}\n"                 # New line
 
-PS1="${PS1}\[\e[36m\]"         # Color: Cyan
-PS1="${PS1} >> "                # Write: └
-PS1="${PS1}\[\e[94m\]"         # Color: Light blue
-PS1="${PS1}"'`__venv_ps1`'     # Write: Current VirtualEnv name
-PS1="${PS1}\[\e[36m\]"         # Color: Cyan
-PS1="${PS1}§ "                # Write: Current user's terminal symbol ('$' -> Normal user / '#' -> Power user)
-PS1="${PS1}\[\e[0m\]"          # Color: White
+# PS1="${PS1}\[\e[36m\]"         # Color: Cyan
+# PS1="${PS1} >> "                # Write: └
+# PS1="${PS1}\[\e[94m\]"         # Color: Light blue
+# PS1="${PS1}"'`__venv_ps1`'     # Write: Current VirtualEnv name
+# PS1="${PS1}\[\e[36m\]"         # Color: Cyan
+# PS1="${PS1}§ "                # Write: Current user's terminal symbol ('$' -> Normal user / '#' -> Power user)
+# PS1="${PS1}\[\e[0m\]"          # Color: White
+
+# PS1="${PS1}\[\e[36m\]"         # Color: Cyan
+# PS1="${PS1} >> "                # Write: └
+# PS1="${PS1}\[\e[94m\]"         # Color: Light blue
+# PS1="${PS1}"'`__venv_ps1`'     # Write: Current VirtualEnv name
+# PS1="${PS1}\[\e[36m\]"         # Color: Cyan
+# PS1="${PS1}§ "                # Write: Current user's terminal symbol ('$' -> Normal user / '#' -> Power user)
+# PS1="${PS1}\[\e[0m\]"          # Color: White
 
 #ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
@@ -77,7 +86,7 @@ alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -la'
 alias l='ls'
-alias l.="ls -A | egrep '^\.'"
+alias l.="ls -A | grep -E '^\.'"
 
 # custom
 alias pac='sudo pacman'
@@ -93,9 +102,9 @@ alias sisop='cd ~/University/Anno2/SistemiOperativi/'
 alias sad='cd ~/University/Anno2/StatisticaAnalisiDati/'
 
 # PYTHON Virual envs using virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
+# export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=
-source $HOME/.local/bin/virtualenvwrapper.sh
+# source $HOME/.local/bin/virtualenvwrapper.sh
 
 
 #fix obvious typo's
@@ -105,7 +114,7 @@ alias nivm="nvim"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
+# alias egrep='grep -E --color=auto'
 alias fgrep='fgrep --color=auto'
 
 #readable output
@@ -161,10 +170,6 @@ alias bupskel='cp -Rf /etc/skel ~/.skel-backup-$(date +%Y.%m.%d-%H.%M.%S)'
 alias cb='sudo cp /etc/skel/.bashrc ~/.bashrc && source ~/.bashrc'
 #copy /etc/skel/.zshrc over on ~/.zshrc - cb= copy zshrc
 #alias cz='sudo cp /etc/skel/.zshrc ~/.zshrc && exec zsh'
-
-#switch between bash and zsh
-alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
-alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 
 #switch between lightdm and sddm
 alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
@@ -301,7 +306,5 @@ alias personal='cp -Rf /personal/* ~'
 [[ -f ~/.bashrc-personal ]] && . ~/.bashrc-personal
 
 export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
-
-pfetch
 
 [ -x /bin/fish ] && SHELL=/bin/fish exec fish
