@@ -1,7 +1,6 @@
 local awful = require("awful")
 
 local apps = {
-  RC.vars.home .. "/.config/polybar/launch.sh",
   "xfce4-power-manager",
   "xfce4-screensaver",
   "blueberry-tray",

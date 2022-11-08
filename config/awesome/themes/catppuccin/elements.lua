@@ -4,18 +4,34 @@ local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
-theme.font = "Hack Nerd Font 15"
+theme.font = "JetBrainsMono Nerd Font Mono 15"
 
-theme.useless_gap = dpi(8)
+theme.main = palette.color['blue']
+
+theme.spacing = dpi(8)
+theme.spacing_sm = dpi(6)
+theme.useless_gap = dpi(5)
+
+theme.transparent = palette.color['text'] .. "33"
+
+theme.bg_normal = palette.color['base']
+theme.fg_normal = palette.color['text']
 
 theme.border_width = 0
 theme.border_normal = palette.color['crust']
 theme.border_focus = palette.color['surface2']
 theme.border_marked = palette.color['yellow']
 
-theme.menu_height = 30
-theme.menu_width = 200
+theme.menu_height = 40
+theme.menu_width = 220
 
 theme.menu_bg_normal = palette.color['base']
 theme.menu_bg_focus = palette.color['mantle']
-theme.menu_fg_focus = palette.color['red']
+theme.menu_fg_focus = theme.main
+
+theme.bar_height = 46
+theme.taglist_bg = theme.bg_normal
+theme.taglist_bg_focus = theme.main
+theme.taglist_bg_urgent = palette.color['red']
+theme.taglist_fg_focus = theme.bg_normal
+theme.taglist_fg_occupied = theme.main

@@ -7,6 +7,6 @@ theme = {}
 
 dofile(theme_path .. "elements.lua")
 
-theme.wallpaper = theme_path .. "mountain.jpg"
+theme.wallpaper = theme_path .. "cyber.jpg"
 
 return theme

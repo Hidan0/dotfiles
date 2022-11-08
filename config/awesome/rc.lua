@@ -24,7 +24,6 @@ local main = {
   menu = require("main.menu"),
   rules = require("main.rules"),
 }
-require("main.signals")
 
 local binding = {
   globalbuttons = require("bindings.globalbuttons"),
@@ -44,13 +43,7 @@ root.keys(RC.globalkeys)
 
 awful.rules.rules = main.rules(binding.clientkeys(), binding.clientbuttons())
 
-local decorations = {
-  wallpaper = require("decorations.wallpaper")
-}
-
-
 RC.layouts = main.layouts()
-
 RC.tags = main.tags()
 
 -- {{{ Menu }}}
@@ -58,7 +51,5 @@ RC.mainmenu = awful.menu({ items = main.menu() })
 RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 menubar.utils.terminal = RC.vars.terminal
 
-awful.screen.connect_for_each_screen(function(s)
-  -- Wallpaper
-  set_wallpaper(s)
-end)
+require("decorations.bar")
+require("main.signals")

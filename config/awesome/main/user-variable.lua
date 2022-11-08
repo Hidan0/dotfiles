@@ -1,3 +1,4 @@
+local beautiful = require("beautiful")
 local home = os.getenv("HOME")
 
 local _M = {
@@ -10,7 +11,7 @@ local _M = {
   modkey = "Mod4",
 
   -- wallpaper
-  wallpaper = home .. "/Pictures/Wallpapers/evening-sky.png"
+  wallpaper = beautiful.wallpaper
 }
 
 return _M
