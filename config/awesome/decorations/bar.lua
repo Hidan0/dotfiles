@@ -7,6 +7,10 @@ local wibox = require("wibox")
 
 require("decorations.wallpaper")
 
+local widgets = {
+  battery = require("decorations.battery")
+}
+
 local taglist_buttons = gears.table.join(
   awful.button({}, 1, function(t) t:view_only() end),
   awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
@@ -22,10 +26,8 @@ end
 local function mkcontainer(template)
   return wibox.widget {
     template,
-    left = beautiful.spacing,
-    right = beautiful.spacing,
-    top = beautiful.spacing,
-    bottom = beautiful.spacing,
+    left = beautiful.spacing_sm,
+    right = beautiful.spacing_sm,
     widget = wibox.container.margin,
   }
 end
@@ -48,6 +50,7 @@ end
 -- {{{ Wibar
 -- Create a textclock widget
 local clock = wibox.widget.textclock("%H:%M")
+local date = wibox.widget.textclock("%a %b %d %Y")
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
@@ -93,16 +96,33 @@ awful.screen.connect_for_each_screen(function(s)
 
   -- Add widgets to the wibox
   s.mywibox:setup {
-    layout = wibox.layout.align.horizontal,
-    { -- Left widgets
-      layout = wibox.layout.fixed.horizontal,
-      wrap_bg(s.mytaglist),
+    {
+      layout = wibox.layout.stack,
+      {
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+          layout = wibox.layout.fixed.horizontal,
+          wrap_bg(s.mytaglist),
+        },
+        nil,
+        { -- Right widgets
+          wrap_bg(mkcontainer(widgets.battery())),
+          wrap_bg(wibox.widget.systray()),
+          wrap_bg(mkcontainer(date)),
+          layout = wibox.layout.fixed.horizontal,
+        },
+      },
+      {
+        wrap_bg(mkcontainer(clock)),
+        valign = "center",
+        halign = "center",
+        layout = wibox.container.place
+      },
     },
-    clock,
-    { -- Right widgets
-      layout = wibox.layout.fixed.horizontal,
-      wibox.widget.systray(),
-    },
+    left = beautiful.useless_gap * 2,
+    top = beautiful.useless_gap * 2,
+    right = beautiful.useless_gap * 2,
+    widget = wibox.container.margin
   }
 end)
 -- }}}

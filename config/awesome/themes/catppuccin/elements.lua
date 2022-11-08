@@ -12,7 +12,7 @@ theme.spacing = dpi(8)
 theme.spacing_sm = dpi(6)
 theme.useless_gap = dpi(5)
 
-theme.transparent = palette.color['text'] .. "33"
+theme.transparent = palette.color['text'] .. "00"
 
 theme.bg_normal = palette.color['base']
 theme.fg_normal = palette.color['text']
