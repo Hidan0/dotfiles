@@ -17,10 +17,9 @@ theme.transparent = palette.color['text'] .. "33"
 theme.bg_normal = palette.color['base']
 theme.fg_normal = palette.color['text']
 
-theme.border_width = 0
-theme.border_normal = palette.color['crust']
-theme.border_focus = palette.color['surface2']
-theme.border_marked = palette.color['yellow']
+theme.border_width = 3
+theme.border_normal = palette.color['mantle']
+theme.border_focus = theme.main
 
 theme.menu_height = 40
 theme.menu_width = 220
