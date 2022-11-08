@@ -3,7 +3,6 @@ local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 
--- Wibox handling library
 local wibox = require("wibox")
 
 require("decorations.wallpaper")
@@ -48,7 +47,7 @@ end
 
 -- {{{ Wibar
 -- Create a textclock widget
-clock = wibox.widget.textclock()
+local clock = wibox.widget.textclock("%H:%M")
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
