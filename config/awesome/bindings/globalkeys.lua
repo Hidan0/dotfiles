@@ -118,13 +118,13 @@ function _M.get()
       awful.spawn.with_shell("flameshot gui")
     end, { description = "take a screenshot", group = "controlls" }),
     awful.key({}, "XF86AudioRaiseVolume", function()
-      awful.spawn.with_shell(RC.vars.home .. "/.dotfiles/scripts/changevolume.sh up")
+      RC.utils.volume.increase()
     end, { description = "raise volume", group = "audio" }),
     awful.key({}, "XF86AudioLowerVolume", function()
-      awful.spawn.with_shell(RC.vars.home .. "/.dotfiles/scripts/changevolume.sh down")
+      RC.utils.volume.decrease()
     end, { description = "lower volume", group = "audio" }),
     awful.key({}, "XF86AudioMute", function()
-      awful.spawn.with_shell("amixer -D pulse set Master 1+ toggle")
+      RC.utils.volume.toggle()
     end, { description = "mute volume", group = "audio" }),
     awful.key({}, "XF86AudioPlay", function()
       awful.spawn.with_shell("playerctl play-pause")

@@ -25,6 +25,8 @@ local main = {
   rules = require("main.rules"),
 }
 
+RC.utils = require("utils")
+
 local binding = {
   globalbuttons = require("bindings.globalbuttons"),
   clientbuttons = require("bindings.clientbuttons"),
@@ -53,3 +55,4 @@ menubar.utils.terminal = RC.vars.terminal
 
 require("decorations.bar")
 require("main.signals")
+
