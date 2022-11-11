@@ -58,6 +58,7 @@ return function()
 
 	local control_buttons = gears.table.join(
 		awful.button({}, 1, utils.volume.toggle),
+		awful.button({}, 3, function() awful.spawn("pavucontrol") end),
 		awful.button({}, 4, utils.volume.increase),
 		awful.button({}, 5, utils.volume.decrease)
 	)
