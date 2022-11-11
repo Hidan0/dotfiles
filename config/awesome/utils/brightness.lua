@@ -27,7 +27,7 @@ return function()
 
 				noti_obj = naughty.notify({
 					replaces_id = noti_obj ~= nil and noti_obj.id or nil,
-					text = percentage,
+					text = "Brightness: " .. percentage,
 				})
 			end)
 		end)
