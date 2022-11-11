@@ -2,13 +2,15 @@
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
+local utils = require("utils")
 
 local wibox = require("wibox")
 
 require("decorations.wallpaper")
 
 local widgets = {
-  battery = require("decorations.battery")
+  battery = require("decorations.battery"),
+  volume = require("decorations.volume")
 }
 
 local taglist_buttons = gears.table.join(
@@ -51,6 +53,9 @@ end
 -- Create a textclock widget
 local clock = wibox.widget.textclock("%H:%M")
 local date = wibox.widget.textclock("%a %b %d %Y")
+
+local volume = widgets.volume()
+utils.volume.set_widget(volume)
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
@@ -106,7 +111,12 @@ awful.screen.connect_for_each_screen(function(s)
         },
         nil,
         { -- Right widgets
-          wrap_bg(mkcontainer(widgets.battery())),
+          spacing = beautiful.spacing_sm,
+          wrap_bg({
+            mkcontainer(widgets.battery()),
+            mkcontainer(volume),
+            layout = wibox.layout.fixed.horizontal,
+          }),
           wrap_bg(wibox.widget.systray()),
           wrap_bg(mkcontainer(date)),
           layout = wibox.layout.fixed.horizontal,
