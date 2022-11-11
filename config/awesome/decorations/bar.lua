@@ -10,7 +10,8 @@ require("decorations.wallpaper")
 
 local widgets = {
   battery = require("decorations.battery"),
-  volume = require("decorations.volume")
+  volume = require("decorations.volume"),
+  brightness = require("decorations.brightness")
 }
 
 local taglist_buttons = gears.table.join(
@@ -56,6 +57,9 @@ local date = wibox.widget.textclock("%a %b %d %Y")
 
 local volume = widgets.volume()
 utils.volume.set_widget(volume)
+
+local brightness = widgets.brightness()
+utils.brightness.set_widget(brightness)
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
@@ -114,6 +118,7 @@ awful.screen.connect_for_each_screen(function(s)
           spacing = beautiful.spacing_sm,
           wrap_bg({
             mkcontainer(widgets.battery()),
+            mkcontainer(brightness),
             mkcontainer(volume),
             layout = wibox.layout.fixed.horizontal,
           }),

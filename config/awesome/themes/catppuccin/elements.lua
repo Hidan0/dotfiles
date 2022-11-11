@@ -37,3 +37,5 @@ theme.taglist_bg_urgent = palette.color['red']
 theme.taglist_bg_urgent = palette.bg_normal
 theme.taglist_fg_focus = theme.bg_normal
 theme.taglist_fg_occupied = theme.main
+
+theme.wibar_widget_brightness_fg = palette.color['yellow']
