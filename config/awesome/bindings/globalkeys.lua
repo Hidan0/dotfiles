@@ -97,11 +97,6 @@ function _M.get()
     -- Menus
     awful.key({ modkey, "Shift" }, "d", function() awful.spawn.with_shell("rofi -show drun") end,
       { description = "app launcher", group = "launcher" }),
-    -- awful.key({ modkey }, "x",
-    --   function()
-    --     awful.spawn.with_shell(RC.vars.home .. "/.dotfiles/scripts/powermenu.sh")
-    --   end,
-    --   { description = "launch custom powermenu", group = "launcher" }),
     awful.key({ modkey }, "c",
       function()
         awful.spawn.with_shell("rofi -show calc -modi calc -no-show-match -no-sort")
@@ -140,11 +135,11 @@ function _M.get()
     end, { description = "stop audio", group = "audio" }),
 
     awful.key({}, "XF86MonBrightnessUp", function()
-      awful.spawn.with_shell(RC.vars.home .. "/.dotfiles/scripts/changebrightness.sh up")
+      RC.utils.brightness.increase()
     end, { description = "increase brightness", group = "brightness" }),
     awful.key({}, "XF86MonBrightnessDown", function()
-      awful.spawn.with_shell(RC.vars.home .. "/.dotfiles/scripts/changebrightness.sh down")
-    end, { description = "stop audio", group = "brightness" })
+      RC.utils.brightness.decrease()
+    end, { description = "decrease brightness", group = "brightness" })
   )
   return globalkeys
 end
