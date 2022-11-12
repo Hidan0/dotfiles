@@ -1,8 +1,7 @@
 local palette = require("themes.catppuccin.mocha")
 
 local theme_assets = require("beautiful.theme_assets")
-local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
+local dpi = require("beautiful.xresources").apply_dpi
 
 theme.font = "JetBrainsMono Nerd Font Mono 15"
 
@@ -12,7 +11,7 @@ theme.spacing = dpi(8)
 theme.spacing_sm = dpi(6)
 theme.useless_gap = dpi(5)
 
-theme.transparent = palette.color['text'] .. "00"
+theme.transparent = "#00000000"
 
 theme.bg_normal = palette.color['base']
 theme.fg_normal = palette.color['text']
@@ -29,7 +28,10 @@ theme.menu_bg_focus = palette.color['mantle']
 theme.menu_fg_focus = theme.main
 theme.menu_border_color = theme.main
 theme.menu_border_width = 1
+
+--
 -- BAR
+--
 theme.bar_height = 46
 theme.taglist_bg = theme.bg_normal
 theme.taglist_bg_focus = theme.main
@@ -38,4 +40,11 @@ theme.taglist_bg_urgent = palette.bg_normal
 theme.taglist_fg_focus = theme.bg_normal
 theme.taglist_fg_occupied = theme.main
 
-theme.wibar_widget_brightness_fg = palette.color['yellow']
+-- BRIGHTNESS widge
+theme.widget_brightness_fg = palette.color['yellow']
+
+-- BATTERY widget
+theme.widget_battery_fg_full = palette.color['teal']
+theme.widget_battery_fg_half_full = palette.color['green']
+theme.widget_battery_fg_half_empty = palette.color['peach']
+theme.widget_battery_fg_charger_needed = palette.color['red']
