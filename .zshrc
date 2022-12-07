@@ -186,7 +186,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=5000
 unsetopt autocd beep extendedglob nomatch notify
-bindkey -v
 
-pfetch
+pfetch | lolcat -t -F 0.285
 eval "$(starship init zsh)"
