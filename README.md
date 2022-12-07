@@ -6,22 +6,20 @@
 - [Current setup](#current-setup)
 - ["Installation" script](#%E2%80%9Cinstallation%E2%80%9D-script)
 - [Scripts](#Scripts)
-  - [Notifications](#notifications)
   - [Menus](#menus)
   - [Pipewire noise filter](#pipewire-noise-filter)
 
 ## Current setup
 
-- OS: [EndeavourOS](https://endeavouros.com/)
-- Window Manager: bspwm
-- Bar: polybar
-- Compositor: picom (AUR: [picom-tryone-git](https://aur.archlinux.org/packages/picom-tryone-git))
+- OS: [Arcolinux](https://arcolinux.com/)
+- Window Manager: awesome
+- Bar: wibar
+- Compositor: picom (AUR: [picom-jonaburg-git](https://aur.archlinux.org/packages/picom-jonaburg-git))
 - Sound: pipewire
-- Notification daemon: dunst
-- Shell: fish + starship
+- Shell: zsh + starship
 - Console: alacritty
 - Application launcher: dmenu + rofi
-- Editor: neovim ([conf](https://github.com/Hidan0/nvim.git))
+- Editor: helix
 - Theme: [Catppuccin](https://github.com/catppuccin/catppuccin)
 - Cursor: breeze (AUR: [breeze-snow-cursor-theme](https://aur.archlinux.org/packages/breeze-snow-cursor-theme))
 - Wallpaper: evening-sky from [catppuccin wallpapers](https://github.com/catppuccin/wallpapers)
@@ -33,12 +31,6 @@ The content of `config` will be linked at `$HOME/.config/`(Ex: `$HOME/.config/al
 If the file/dir is already present (symbolic link included) a new link will be created, the old one will be renamed (yeah it's pretty bad).
 
 ## Scripts
-
-### Notifications
-
-**Dunst** is required.
-
-`changebrightness.sh` and `changevolume.sh` display a notification with the brightness level and Master volume when media keys are pressed. 
 
 ### Menus
 
