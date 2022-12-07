@@ -9,7 +9,7 @@ theme.main = palette.color['blue']
 
 theme.spacing = dpi(8)
 theme.spacing_sm = dpi(6)
-theme.useless_gap = dpi(5)
+theme.useless_gap = dpi(3)
 
 theme.transparent = "#00000000"
 
