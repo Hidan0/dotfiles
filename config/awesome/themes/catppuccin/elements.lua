@@ -48,3 +48,6 @@ theme.widget_battery_fg_full = palette.color['teal']
 theme.widget_battery_fg_half_full = palette.color['green']
 theme.widget_battery_fg_half_empty = palette.color['peach']
 theme.widget_battery_fg_charger_needed = palette.color['red']
+
+-- CPU widget
+theme.cpu_usage = palette.color['sky']

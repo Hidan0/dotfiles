@@ -11,7 +11,8 @@ require("decorations.wallpaper")
 local widgets = {
   battery = require("decorations.battery"),
   volume = require("decorations.volume"),
-  brightness = require("decorations.brightness")
+  brightness = require("decorations.brightness"),
+  cpu = require("decorations.cpu")
 }
 
 local taglist_buttons = gears.table.join(
@@ -117,6 +118,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
           spacing = beautiful.spacing_sm,
           wrap_bg({
+            mkcontainer(widgets.cpu()),
             mkcontainer(widgets.battery()),
             mkcontainer(brightness),
             mkcontainer(volume),
