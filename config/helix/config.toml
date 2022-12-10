@@ -3,6 +3,7 @@ theme = "catppuccin_mocha"
 [editor]
 line-number = "relative"
 color-modes = true
+bufferline = "always"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -16,3 +17,6 @@ j = { k = "normal_mode" }
 
 [editor.indent-guides]
 render = true
+
+[editor.statusline]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]
