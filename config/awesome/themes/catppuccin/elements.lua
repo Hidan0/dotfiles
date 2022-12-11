@@ -51,3 +51,4 @@ theme.widget_battery_fg_charger_needed = palette.color['red']
 
 -- CPU widget
 theme.cpu_usage = palette.color['sky']
+theme.cpu_temp = palette.color['red']

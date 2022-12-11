@@ -12,7 +12,8 @@ local widgets = {
   battery = require("decorations.battery"),
   volume = require("decorations.volume"),
   brightness = require("decorations.brightness"),
-  cpu = require("decorations.cpu")
+  cpu = require("decorations.cpu"),
+  cpu_temp = require("decorations.temperature")
 }
 
 local taglist_buttons = gears.table.join(
@@ -119,6 +120,7 @@ awful.screen.connect_for_each_screen(function(s)
           spacing = beautiful.spacing_sm,
           wrap_bg({
             mkcontainer(widgets.cpu()),
+            mkcontainer(widgets.cpu_temp()),
             mkcontainer(widgets.battery()),
             mkcontainer(brightness),
             mkcontainer(volume),
