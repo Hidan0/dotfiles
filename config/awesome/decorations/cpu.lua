@@ -24,7 +24,6 @@ return function()
 	})
 
 	local percentage_text = wibox.widget({
-		text = "bla",
 		align = "center",
 		valign = "center",
 		widget = wibox.widget.textbox,
