@@ -25,10 +25,10 @@ setopt SHARE_HISTORY
 
 export HISTCONTROL=ignoreboth:erasedups
 
-# Make nano the default editor
-
 export EDITOR='helix'
 export VISUAL='helix'
+
+export TERM='alacritty'
 
 # PATH
 if [ -d "$HOME/.bin" ] ;
@@ -187,5 +187,5 @@ HISTSIZE=1000
 SAVEHIST=5000
 unsetopt autocd beep extendedglob nomatch notify
 
-pfetch | lolcat -t -F 0.285
+pfetch 
 eval "$(starship init zsh)"
