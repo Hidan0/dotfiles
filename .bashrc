@@ -307,4 +307,4 @@ alias personal='cp -Rf /personal/* ~'
 
 export PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 
-[ -x /bin/fish ] && SHELL=/bin/fish exec fish
+# [ -x /bin/fish ] && SHELL=/bin/fish exec fish
