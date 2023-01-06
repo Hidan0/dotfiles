@@ -184,11 +184,6 @@ _G.packer_plugins = {
     path = "/home/hidan0/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
-  ["nvim-tmux-navigation"] = {
-    loaded = true,
-    path = "/home/hidan0/.local/share/nvim/site/pack/packer/start/nvim-tmux-navigation",
-    url = "https://github.com/alexghergh/nvim-tmux-navigation"
-  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/hidan0/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -250,6 +245,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hidan0/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/tpope/vim-surround"
+  },
+  ["vim-tmux-navigator"] = {
+    loaded = true,
+    path = "/home/hidan0/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
+    url = "https://github.com/christoomey/vim-tmux-navigator"
   }
 }
 

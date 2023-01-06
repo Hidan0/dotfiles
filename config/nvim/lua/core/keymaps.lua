@@ -20,10 +20,10 @@ keymap.set("n", "<leader>wq", ":close<CR>") -- close current window
 keymap.set("n", "<leader>we", "<C-w>=") -- make split windows equal size
 
 -- Window navigation
-keymap.set("n", "<leader>wh", "<C-w>h")
-keymap.set("n", "<leader>wj", "<C-w>j")
-keymap.set("n", "<leader>wk", "<C-w>k")
-keymap.set("n", "<leader>wl", "<C-w>l")
+-- keymap.set("n", "<leader>wh", "<C-w>h")
+-- keymap.set("n", "<leader>wj", "<C-w>j")
+-- keymap.set("n", "<leader>wk", "<C-w>k")
+-- keymap.set("n", "<leader>wl", "<C-w>l")
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
@@ -76,3 +76,9 @@ keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current c
 
 -- undotree
 keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, opts)
+
+-- nvim-tmux-navigator for window navigation
+keymap.set("n", "<C-h>", "<Cmd>TmuxNavigateLeft<CR>", opts)
+keymap.set("n", "<C-j>", "<Cmd>TmuxNavigateDown<CR>", opts)
+keymap.set("n", "<C-k>", "<Cmd>TmuxNavigateUp<CR>", opts)
+keymap.set("n", "<C-l>", "<Cmd>TmuxNavigateRight<CR>", opts)

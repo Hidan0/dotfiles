@@ -31,7 +31,7 @@ return packer.startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- tmux & windows
-	use({ "alexghergh/nvim-tmux-navigation" }) -- TODO
+	use({ "christoomey/vim-tmux-navigator" })
 	use({ "szw/vim-maximizer" })
 
 	use({ "tpope/vim-surround" })
