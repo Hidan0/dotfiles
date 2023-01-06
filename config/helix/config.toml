@@ -17,6 +17,7 @@ j = { k = "normal_mode" }
 
 [editor.indent-guides]
 render = true
+character = "┆"
 
 [editor.statusline]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]
