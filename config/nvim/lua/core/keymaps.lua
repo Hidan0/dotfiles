@@ -52,6 +52,7 @@ keymap.set("v", "<leader>d", [["_d]])
 
 keymap.set("n", "Q", "<nop>")
 
+keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 ------------
 -- Plugins
 ------------
