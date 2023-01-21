@@ -10,7 +10,7 @@ catppuccin.setup({
 		dark = "mocha",
 	},
 	transparent_background = false,
-	term_colors = false,
+	term_colors = true,
 	dim_inactive = {
 		enabled = false,
 		shade = "dark",
