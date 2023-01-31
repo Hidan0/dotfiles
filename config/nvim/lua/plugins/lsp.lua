@@ -30,6 +30,15 @@ lsp.configure("sumneko_lua", {
 	},
 })
 
+lsp.configure("rust_analyzer", {
+	cmd = {
+		"rustup",
+		"run",
+		"stable",
+		"rust-analyzer",
+	},
+})
+
 --------
 -- CMP
 --------
