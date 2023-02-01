@@ -32,9 +32,10 @@ theme.menu_border_width = 1
 --
 -- BAR
 --
-theme.bar_height = 46
+theme.bar_text = palette.color["overlay1"]
+theme.bar_height = 42
 theme.taglist_bg = theme.bg_normal
-theme.taglist_bg_focus = theme.main
+theme.taglist_bg_focus = theme.bg_normal
 theme.taglist_bg_urgent = palette.color["red"]
 theme.taglist_bg_urgent = palette.bg_normal
 theme.taglist_fg_focus = theme.bg_normal

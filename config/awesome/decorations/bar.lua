@@ -14,19 +14,8 @@ local widgets = {
 	brightness = require("decorations.brightness"),
 	cpu = require("decorations.cpu"),
 	cpu_temp = require("decorations.temperature"),
+	my_taglist = require("decorations.taglist"),
 }
-
-local taglist_buttons = gears.table.join(
-	awful.button({}, 1, function(t)
-		t:view_only()
-	end),
-	awful.button({}, 4, function(t)
-		awful.tag.viewnext(t.screen)
-	end),
-	awful.button({}, 5, function(t)
-		awful.tag.viewprev(t.screen)
-	end)
-)
 
 local function r_rect(radius)
 	return function(cr, width, height)
@@ -75,39 +64,14 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Create a taglist widget
-	s.mytaglist = awful.widget.taglist({
-		screen = s,
-		filter = awful.widget.taglist.filter.all,
-		style = { shape = gears.shape.circle },
-		layout = {
-			layout = wibox.layout.fixed.horizontal,
-			spacing = beautiful.spacing,
-		},
-		widget_template = {
-			{
-				{
-					{
-						id = "text_role",
-						widget = wibox.widget.textbox,
-					},
-					layout = wibox.layout.fixed.horizontal,
-				},
-				left = beautiful.spacing_sm,
-				right = beautiful.spacing_sm,
-				widget = wibox.container.margin,
-			},
-			id = "background_role",
-			widget = wibox.container.background,
-		},
-		buttons = taglist_buttons,
-	})
+	s.mytaglist = widgets.my_taglist(s)
 
 	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
 		screen = s,
 		height = beautiful.bar_height,
-		bg = theme.transparent,
+		bg = beautiful.bg_normal,
 		type = "dock",
 	})
 
@@ -145,7 +109,7 @@ awful.screen.connect_for_each_screen(function(s)
 			},
 		},
 		left = beautiful.useless_gap * 2,
-		top = beautiful.useless_gap * 2,
+		-- top = beautiful.useless_gap * 2,
 		right = beautiful.useless_gap * 2,
 		widget = wibox.container.margin,
 	})
