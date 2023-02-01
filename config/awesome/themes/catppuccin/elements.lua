@@ -3,12 +3,13 @@ local palette = require("themes.catppuccin.mocha")
 local theme_assets = require("beautiful.theme_assets")
 local dpi = require("beautiful.xresources").apply_dpi
 
-theme.font = "JetBrainsMono Nerd Font Mono 15"
+theme.font = "JetBrainsMono Nerd Font Mono 13"
 
 theme.main = palette.color["blue"]
 
 theme.spacing = dpi(8)
 theme.spacing_sm = dpi(6)
+theme.spacing_mm = dpi(14)
 theme.useless_gap = dpi(3)
 
 theme.transparent = "#00000000"
@@ -34,12 +35,16 @@ theme.menu_border_width = 1
 --
 theme.bar_text = palette.color["overlay1"]
 theme.bar_height = 42
+theme.bar_bg = palette.color["mantle"]
+
 theme.taglist_bg = theme.bg_normal
 theme.taglist_bg_focus = theme.bg_normal
 theme.taglist_bg_urgent = palette.color["red"]
 theme.taglist_bg_urgent = palette.bg_normal
 theme.taglist_fg_focus = theme.bg_normal
 theme.taglist_fg_occupied = theme.main
+
+theme.taglist_wrapper_bg = palette.color["surface0"]
 
 -- BRIGHTNESS widge
 theme.widget_brightness_fg = palette.color["yellow"]
