@@ -3,12 +3,12 @@ local palette = require("themes.catppuccin.mocha")
 local theme_assets = require("beautiful.theme_assets")
 local dpi = require("beautiful.xresources").apply_dpi
 
-theme.font = "JetBrainsMono Nerd Font Mono 13"
+theme.font = "JetBrainsMono Nerd Font Mono 12"
 
 theme.main = palette.color["blue"]
 
 theme.spacing = dpi(8)
-theme.spacing_sm = dpi(6)
+theme.spacing_sm = dpi(7)
 theme.spacing_mm = dpi(14)
 theme.useless_gap = dpi(3)
 

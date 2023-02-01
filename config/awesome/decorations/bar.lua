@@ -43,23 +43,6 @@ local function mkcontainer(template)
 	})
 end
 
-local function wrap_bg(template)
-	return wibox.widget({
-		{
-			template,
-			left = beautiful.spacing_sm,
-			right = beautiful.spacing_sm,
-			top = beautiful.spacing_sm,
-			bottom = beautiful.spacing_sm,
-			widget = wibox.container.margin,
-		},
-		widget = wibox.container.background,
-		shape = r_rect(20),
-		bg = beautiful.taglist_wrapper_bg,
-		height = 10,
-	})
-end
-
 -- {{{ Wibar
 -- Create a textclock widget
 local date = wibox.widget.textclock("%a %b %d, %H:%M")
@@ -96,22 +79,18 @@ awful.screen.connect_for_each_screen(function(s)
 			},
 			nil,
 			{ -- Right widgets
-				-- spacing = beautiful.spacing_sm,
-				-- wrap_bg({
-				-- 	mkcontainer(widgets.cpu()),
-				-- 	mkcontainer(widgets.cpu_temp()),
-				-- 	mkcontainer(widgets.battery()),
-				-- 	mkcontainer(brightness),
-				-- 	mkcontainer(volume),
-				-- 	layout = wibox.layout.fixed.horizontal,
-				-- }),
-				-- wrap_bg(wibox.widget.systray()),
+				spacing = beautiful.spacing_sm,
+				mkcontainer(widgets.cpu()),
+				mkcontainer(widgets.cpu_temp()),
+				mkcontainer(widgets.battery()),
+				mkcontainer(brightness),
+				mkcontainer(volume),
+				mkcontainer(wibox.widget.systray()),
 				mkcontainer(date),
 				layout = wibox.layout.fixed.horizontal,
 			},
 		},
 		left = beautiful.useless_gap * 2,
-		-- top = beautiful.useless_gap * 2,
 		right = beautiful.useless_gap * 2,
 		widget = wibox.container.margin,
 	})
