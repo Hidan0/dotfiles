@@ -23,6 +23,7 @@ theme.border_focus = theme.main
 
 theme.menu_height = 40
 theme.menu_width = 220
+theme.menu_font = "JetBrainsMono Nerd Font Mono 14"
 
 theme.menu_bg_normal = palette.color["base"]
 theme.menu_bg_focus = palette.color["mantle"]
