@@ -15,6 +15,7 @@ local widgets = {
 	cpu = require("decorations.cpu"),
 	cpu_temp = require("decorations.temperature"),
 	my_taglist = require("decorations.taglist"),
+	random_icon = require("decorations.random_icon"),
 }
 
 local function r_rect(radius)
@@ -53,19 +54,6 @@ utils.volume.set_widget(volume)
 local brightness = widgets.brightness()
 utils.brightness.set_widget(brightness)
 
-local tf_logo = wibox.widget({
-	{
-		image = beautiful.tf_autobot_logo,
-		resize = true,
-		widget = wibox.widget.imagebox,
-	},
-	left = beautiful.spacing_sm,
-	right = beautiful.spacing_sm,
-	top = beautiful.spacing_sm,
-	bottom = beautiful.spacing_sm,
-	widget = wibox.container.margin,
-})
-
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
@@ -88,7 +76,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				tf_logo,
+				widgets.random_icon(),
 				s.mytaglist,
 			},
 			nil,
