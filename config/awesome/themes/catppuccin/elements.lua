@@ -1,11 +1,11 @@
 local palette = require("themes.catppuccin.mocha")
-
-local theme_assets = require("beautiful.theme_assets")
 local dpi = require("beautiful.xresources").apply_dpi
+
+local theme_dir = require("awful.util").getdir("config") .. "/themes/catppuccin/"
 
 theme.font = "JetBrainsMono Nerd Font Mono 12"
 
-theme.main = palette.color["blue"]
+theme.main = palette.color["mauve"]
 
 theme.spacing = dpi(8)
 theme.spacing_sm = dpi(7)
@@ -59,3 +59,6 @@ theme.widget_battery_fg_charger_needed = palette.color["red"]
 -- CPU widget
 theme.cpu_usage = palette.color["sky"]
 theme.cpu_temp = palette.color["red"]
+
+-- Funny logo
+theme.tf_autobot_logo = theme_dir .. "tf_autobot_logo.svg"
