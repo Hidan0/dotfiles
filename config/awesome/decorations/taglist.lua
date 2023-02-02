@@ -5,9 +5,9 @@ local wibox = require("wibox")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local ICONS = {
-	unfocus = " ",
-	empty = " ",
-	focus = " ",
+	unfocus = "",
+	empty = "",
+	focus = "",
 }
 
 -- Function to update the tags
@@ -50,14 +50,14 @@ return function(s)
 			{
 				{
 					id = "icon_role",
-					font = "JetBrainsMono Nerd Font 15",
+					font = "JetBrainsMono Nerd Font Mono 22",
 					widget = wibox.widget.textbox,
 				},
 				id = "margin_role",
 				top = dpi(0),
 				bottom = dpi(0),
-				left = dpi(0),
-				right = dpi(0),
+				left = dpi(1),
+				right = dpi(1),
 				widget = wibox.container.margin,
 			},
 			id = "background_role",
