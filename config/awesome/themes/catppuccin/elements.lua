@@ -63,3 +63,4 @@ theme.cpu_temp = palette.color["red"]
 -- Funny logo
 theme.tf_autobot_logo = theme_dir .. "tf_autobot_logo.svg"
 theme.tf_decepticon_logo = theme_dir .. "tf_decepticon_logo.svg"
+theme.tlou_firefly_logo = theme_dir .. "tlou_firefly_logo.svg"

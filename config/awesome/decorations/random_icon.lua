@@ -1,7 +1,7 @@
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 
-local ICONS = { beautiful.tf_autobot_logo, beautiful.tf_decepticon_logo }
+local ICONS = { beautiful.tf_autobot_logo, beautiful.tf_decepticon_logo, beautiful.tlou_firefly_logo }
 
 return function()
 	return wibox.widget({
