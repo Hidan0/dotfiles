@@ -38,7 +38,7 @@ local get_icon = function(level)
 end
 
 local set_icon = function(percentage, icon, level)
-	percentage.markup = utils.colorize_markup(level .. "%", beautiful.widget_brightness_fg)
+	percentage.markup = utils.colorize_markup(utils.percentage_to_cool_dots(level), beautiful.widget_brightness_fg)
 	icon.markup = utils.colorize_markup(get_icon(level), beautiful.widget_brightness_fg)
 end
 
@@ -52,6 +52,7 @@ return function()
 
 	local percentage_text = wibox.widget({
 		id = "percent_text",
+		font = beautiful.font_ms,
 		align = "center",
 		valign = "center",
 		widget = wibox.widget.textbox,
@@ -59,10 +60,8 @@ return function()
 
 	local percentage = wibox.container.background(percentage_text)
 
-	local control_buttons = gears.table.join(
-		awful.button({}, 4, utils.brightness.increase),
-		awful.button({}, 5, utils.brightness.decrease)
-	)
+	local control_buttons =
+		gears.table.join(awful.button({}, 4, utils.brightness.increase), awful.button({}, 5, utils.brightness.decrease))
 
 	local widget = wibox.widget({
 		icon,
