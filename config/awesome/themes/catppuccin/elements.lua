@@ -7,9 +7,9 @@ theme.font_ls = "JetBrainsMono Nerd Font Mono 22"
 
 theme.main = palette.color["mauve"]
 
-theme.spacing = dpi(8)
+theme.spacing = dpi(10)
 theme.spacing_sm = dpi(7)
-theme.spacing_mm = dpi(14)
+theme.spacing_mm = dpi(15)
 theme.useless_gap = 0
 
 theme.transparent = "#00000000"
