@@ -40,7 +40,7 @@ return function()
 	end
 
 	return {
-    get_level = get_level,
+		get_level = get_level,
 		increase = function()
 			action(cmd_inc)
 		end,

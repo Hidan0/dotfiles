@@ -2,6 +2,7 @@ local palette = require("themes.catppuccin.mocha")
 local dpi = require("beautiful.xresources").apply_dpi
 
 theme.font = "JetBrainsMono Nerd Font Mono 12"
+theme.font_ms = "JetBrainsMono Nerd Font Mono 15"
 
 theme.main = palette.color["mauve"]
 

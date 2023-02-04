@@ -32,7 +32,11 @@ local get_icon = function(level, status)
 end
 
 local set_icon = function(percentage, icon, level, status)
-	percentage.text = status == "on" and level .. "%" or "muted"
+	if status == "on" then
+		percentage.text = utils.percentage_to_cool_dots(level)
+	else
+		percentage.text = utils.percentage_to_cool_dots(0)
+	end
 	icon.markup = get_icon(level, status)
 end
 
@@ -48,7 +52,7 @@ return function()
 
 	local percentage_text = wibox.widget({
 		id = "percent_text",
-		font = beautiful.font,
+		font = beautiful.font_ms,
 		align = "center",
 		valign = "center",
 		widget = wibox.widget.textbox,
@@ -58,7 +62,9 @@ return function()
 
 	local control_buttons = gears.table.join(
 		awful.button({}, 1, utils.volume.toggle),
-		awful.button({}, 3, function() awful.spawn("pavucontrol") end),
+		awful.button({}, 3, function()
+			awful.spawn("pavucontrol")
+		end),
 		awful.button({}, 4, utils.volume.increase),
 		awful.button({}, 5, utils.volume.decrease)
 	)
