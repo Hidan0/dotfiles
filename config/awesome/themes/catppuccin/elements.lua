@@ -10,7 +10,7 @@ theme.main = palette.color["mauve"]
 theme.spacing = dpi(8)
 theme.spacing_sm = dpi(7)
 theme.spacing_mm = dpi(14)
-theme.useless_gap = dpi(3)
+theme.useless_gap = 0
 
 theme.transparent = "#00000000"
 
