@@ -19,20 +19,20 @@ require("main.theme")
 require("main.apps")
 
 local main = {
-  layouts = require("main.layouts"),
-  tags = require("main.tags"),
-  menu = require("main.menu"),
-  rules = require("main.rules"),
+	layouts = require("main.layouts"),
+	tags = require("main.tags"),
+	menu = require("main.menu"),
+	rules = require("main.rules"),
 }
 
 RC.utils = require("utils")
 
 local binding = {
-  globalbuttons = require("bindings.globalbuttons"),
-  clientbuttons = require("bindings.clientbuttons"),
-  globalkeys    = require("bindings.globalkeys"),
-  bindtotags    = require("bindings.bindtotags"),
-  clientkeys    = require("bindings.clientkeys")
+	globalbuttons = require("bindings.globalbuttons"),
+	clientbuttons = require("bindings.clientbuttons"),
+	globalkeys = require("bindings.globalkeys"),
+	bindtotags = require("bindings.bindtotags"),
+	clientkeys = require("bindings.clientkeys"),
 }
 
 -- Mouse and key bindings
@@ -55,4 +55,3 @@ menubar.utils.terminal = RC.vars.terminal
 
 require("decorations.bar")
 require("main.signals")
-
