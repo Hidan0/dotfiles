@@ -2,11 +2,9 @@
 -- Original script from github.com/hnbnh
 --
 local awful = require("awful")
-local naughty = require("naughty")
 
 return function()
 	local widget = nil
-	local noti_obj = nil
 
 	local cmd_set = "amixer set Master"
 	local cmd_get = "amixer get Master"
@@ -24,17 +22,9 @@ return function()
 	local action = function(cmd)
 		awful.spawn.easy_async(cmd, function()
 			get_level(function(level, status)
-				local percentage = level .. "%"
-				local text = status == "on" and "Volume: " .. percentage or "[Muted] " .. percentage
-
 				if widget then
 					widget:emit_signal("volume::update", level, status)
 				end
-
-				noti_obj = naughty.notify({
-					replaces_id = noti_obj ~= nil and noti_obj.id or nil,
-					text = text,
-				})
 			end)
 		end)
 	end
