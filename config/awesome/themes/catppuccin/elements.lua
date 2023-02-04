@@ -1,8 +1,6 @@
 local palette = require("themes.catppuccin.mocha")
 local dpi = require("beautiful.xresources").apply_dpi
 
-local theme_dir = require("awful.util").getdir("config") .. "/themes/catppuccin/"
-
 theme.font = "JetBrainsMono Nerd Font Mono 12"
 
 theme.main = palette.color["mauve"]
@@ -61,6 +59,4 @@ theme.cpu_usage = palette.color["sky"]
 theme.cpu_temp = palette.color["red"]
 
 -- Funny logo
-theme.tf_autobot_logo = theme_dir .. "tf_autobot_logo.svg"
-theme.tf_decepticon_logo = theme_dir .. "tf_decepticon_logo.svg"
-theme.tlou_firefly_logo = theme_dir .. "tlou_firefly_logo.svg"
+theme.icon_dir = require("awful.util").getdir("config") .. "themes/catppuccin/icons/"
