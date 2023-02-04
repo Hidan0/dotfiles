@@ -38,8 +38,8 @@ local function mkcontainer(template)
 			fg = beautiful.main,
 			widget = wibox.container.background,
 		},
-		top = beautiful.spacing_sm,
-		bottom = beautiful.spacing_sm,
+		top = beautiful.spacing,
+		bottom = beautiful.spacing,
 		widget = wibox.container.margin,
 	})
 end
@@ -84,9 +84,9 @@ awful.screen.connect_for_each_screen(function(s)
 				spacing = beautiful.spacing_sm,
 				mkcontainer(widgets.cpu()),
 				mkcontainer(widgets.cpu_temp()),
-				mkcontainer(widgets.battery()),
 				mkcontainer(brightness),
 				mkcontainer(volume),
+				mkcontainer(widgets.battery()),
 				mkcontainer(wibox.widget.systray()),
 				mkcontainer(date),
 				layout = wibox.layout.fixed.horizontal,

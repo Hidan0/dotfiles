@@ -3,6 +3,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 theme.font = "JetBrainsMono Nerd Font Mono 12"
 theme.font_ms = "JetBrainsMono Nerd Font Mono 15"
+theme.font_ls = "JetBrainsMono Nerd Font Mono 22"
 
 theme.main = palette.color["mauve"]
 

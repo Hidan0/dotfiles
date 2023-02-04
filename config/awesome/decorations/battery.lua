@@ -13,17 +13,11 @@ local OPTS = {
 
 local ICONS = {
 	normal = {
-		[0] = "",
-		[10] = "",
-		[20] = "",
-		[30] = "",
-		[40] = "",
-		[50] = "",
-		[60] = "",
-		[70] = "",
-		[80] = "",
-		[90] = "",
-		[100] = "",
+		[0] = "",
+		[25] = "",
+		[50] = "",
+		[75] = "",
+		[100] = "",
 	},
 }
 
@@ -35,6 +29,7 @@ return function()
 
 	local icon = wibox.widget({
 		markup = utils.colorize_markup(ICONS.normal[state.current_level], state.current_color),
+		font = beautiful.font_ls,
 		align = "center",
 		valign = "center",
 		widget = wibox.widget.textbox,
@@ -59,11 +54,11 @@ return function()
 
 	watch("acpi -i", OPTS.timeout, function(_, stdout)
 		local status, charge_str, _ =
-		string.match(stdout, "Battery " .. OPTS.bat_item .. ": ([%a%s]+), (%d?%d?%d)%%,?(.*)")
+			string.match(stdout, "Battery " .. OPTS.bat_item .. ": ([%a%s]+), (%d?%d?%d)%%,?(.*)")
 
 		--------------------------------------------------------
 		local level = math.floor(tonumber(charge_str))
-		local tens = math.floor(level / 10) * 10
+		local quarters = math.floor(level / 25) * 25
 		local color
 
 		if status == "Full" then
@@ -79,11 +74,11 @@ return function()
 		percentage_text.text = level .. "%"
 		percentage.fg = color
 
-		if state.current_color ~= color or state.current_level ~= tens then
-			icon.markup = utils.colorize_markup(ICONS.normal[tens], color)
+		if state.current_color ~= color or state.current_level ~= quarters then
+			icon.markup = utils.colorize_markup(ICONS.normal[quarters], color)
 		end
 
-		state.current_level = tens
+		state.current_level = quarters
 		state.current_color = color
 	end)
 

@@ -50,7 +50,7 @@ return function(s)
 			{
 				{
 					id = "icon_role",
-					font = "JetBrainsMono Nerd Font Mono 22",
+					font = beautiful.font_ls,
 					widget = wibox.widget.textbox,
 				},
 				id = "margin_role",
