@@ -21,3 +21,5 @@ require("plugins.autopairs")
 require("plugins.gitsigns")
 
 require("plugins.bufferline")
+
+require("plugins.presence")
