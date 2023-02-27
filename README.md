@@ -1,8 +1,9 @@
- # Hidan0's Dotfiles
+# Hidan0's Dotfiles
 
- This dotfiles are not "plug and play", they are meant for personal use. You can of course use them, but to make them work you'll probably need some debugging.
+This dotfiles are not "plug and play", they are meant for personal use. You can of course use them, but to make them work you'll probably need some debugging.
 
 ## Table of Contents
+
 - [Current setup](#current-setup)
 - ["Installation" script](#%E2%80%9Cinstallation%E2%80%9D-script)
 - [Scripts](#Scripts)
@@ -19,7 +20,8 @@
 - Shell: zsh + starship
 - Console: alacritty
 - Application launcher: dmenu + rofi
-- Editor: helix
+- Lockscreen: betterlockscreen
+- Editor: nvim
 - Theme: [Catppuccin](https://github.com/catppuccin/catppuccin)
 - Cursor: breeze (AUR: [breeze-snow-cursor-theme](https://aur.archlinux.org/packages/breeze-snow-cursor-theme))
 - Wallpaper: evening-sky from [catppuccin wallpapers](https://github.com/catppuccin/wallpapers)
@@ -39,6 +41,7 @@ If the file/dir is already present (symbolic link included) a new link will be c
 - `powermenu.sh` display a simple powermenu using rofi.
 
 Other menus using rofi:
+
 - rofi-calc ([git](https://github.com/svenstaro/rofi-calc))
 - rofi-emoji ([git](https://github.com/Mange/rofi-emoji))
 
@@ -46,7 +49,6 @@ Other menus using rofi:
 
 **noise-suppression-for-voice** is required ([git](https://github.com/werman/noise-suppression-for-voice), [AUR](https://aur.archlinux.org/packages/noise-suppression-for-voice)).
 
-The scripts copies the *systemd unit* file in the configuration directory and enables the service.
+The scripts copies the _systemd unit_ file in the configuration directory and enables the service.
 
 Reference: https://medium.com/@gamunu/linux-noise-cancellation-b9f997f6764d
-
