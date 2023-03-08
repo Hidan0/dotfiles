@@ -23,3 +23,5 @@ require("plugins.gitsigns")
 require("plugins.bufferline")
 
 require("plugins.presence")
+
+require("plugins.markdown-preview")
