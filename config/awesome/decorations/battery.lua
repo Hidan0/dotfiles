@@ -8,7 +8,7 @@ local utils = require("utils")
 
 local OPTS = {
 	timeout = 10,
-	bat_item = 1,
+	bat_item = 0,
 }
 
 local ICONS = {
