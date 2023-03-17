@@ -41,6 +41,9 @@ fi
 
 PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 
+# esp-rs env variables 
+source $HOME/export-esp.sh
+
 ### ALIASES ###
 alias hx='helix'
 
