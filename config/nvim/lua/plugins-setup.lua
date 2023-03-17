@@ -72,6 +72,8 @@ return packer.startup(function(use)
 			{ "L3MON4D3/LuaSnip" },
 			-- Snippet Collection (Optional)
 			{ "rafamadriz/friendly-snippets" },
+			-- Rust tools
+			{ "simrat39/rust-tools.nvim" },
 		},
 	})
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
@@ -113,6 +115,8 @@ return packer.startup(function(use)
 		end,
 		ft = { "markdown" },
 	})
+
+	use({ "mfussenegger/nvim-dap" })
 
 	if packer_bootstrap then
 		require("packer").sync()

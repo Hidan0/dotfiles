@@ -29,15 +29,6 @@ lsp.configure("lua_ls", {
 	},
 })
 
-lsp.configure("rust_analyzer", {
-	cmd = {
-		"rustup",
-		"run",
-		"stable",
-		"rust-analyzer",
-	},
-})
-
 --------
 -- CMP
 --------
