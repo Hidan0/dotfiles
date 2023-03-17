@@ -29,6 +29,28 @@ lsp.configure("lua_ls", {
 	},
 })
 
+local status_rstools, rstools = pcall(require, "rust-tools")
+if not status_rstools then
+	return
+end
+
+rstools.setup({
+	tools = {
+		inlay_hints = {
+			auto = true,
+		},
+	},
+	server = {
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
+		},
+	},
+})
+
 --------
 -- CMP
 --------
