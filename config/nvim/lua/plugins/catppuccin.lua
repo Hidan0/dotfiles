@@ -9,7 +9,7 @@ catppuccin.setup({
 		light = "latte",
 		dark = "mocha",
 	},
-	transparent_background = true,
+	transparent_background = false,
 	term_colors = true,
 	dim_inactive = {
 		enabled = false,
@@ -32,8 +32,18 @@ catppuccin.setup({
 		types = {},
 		operators = {},
 	},
-	color_overrides = {},
-	custom_highlights = {},
+	color_overrides = {
+		mocha = {
+			base = "#11111b",
+			mantle = "#101019",
+			crust = "#0c0c14",
+		},
+	},
+	custom_highlights = function(colors)
+		return {
+			LspInlayHint = { fg = colors.surface2, style = { "italic" } },
+		}
+	end,
 	integrations = {
 		cmp = true,
 		gitsigns = true,

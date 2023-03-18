@@ -72,6 +72,8 @@ return packer.startup(function(use)
 			{ "L3MON4D3/LuaSnip" },
 			-- Snippet Collection (Optional)
 			{ "rafamadriz/friendly-snippets" },
+			-- Inlayhints
+			{ "lvimuser/lsp-inlayhints.nvim" },
 			-- Rust tools
 			{ "simrat39/rust-tools.nvim" },
 		},

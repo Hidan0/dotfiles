@@ -14,4 +14,8 @@ saga.setup({
 		edit = "<CR>",
 	},
 	custom_kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+	lightbulb = {
+		enable = false,
+		virtual_text = false,
+	},
 })
