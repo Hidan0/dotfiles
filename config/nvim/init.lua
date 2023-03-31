@@ -25,3 +25,5 @@ require("plugins.bufferline")
 require("plugins.presence")
 
 require("plugins.markdown-preview")
+
+require("plugins.colorizer")
