@@ -6,7 +6,7 @@ local apps = {
 	"picom --experimental-backends --config " .. RC.vars.home .. "/.config/picom/picom.conf",
 	"optimus-manager-qt",
 	"flameshot",
-	"nm-applet",
+	"/usr/lib/polkit-kde-authentication-agent-1",
 }
 
 for app = 1, #apps do

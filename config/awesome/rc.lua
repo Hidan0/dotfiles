@@ -53,5 +53,7 @@ RC.mainmenu = awful.menu({ items = main.menu() })
 RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 menubar.utils.terminal = RC.vars.terminal
 
+package.loaded["naughty.dbus"] = {}
+
 require("decorations.bar")
 require("main.signals")
