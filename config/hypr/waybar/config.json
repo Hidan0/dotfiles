@@ -19,7 +19,7 @@
   "mode": "dock",
 
   "wlr/workspaces": {
-    "format": "{icon}",
+    "format": "{name}: {icon}",
     "on-click": "activate",
     "format-icons": {
       "urgent": "",
