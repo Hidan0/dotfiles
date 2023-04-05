@@ -113,18 +113,42 @@ lsp.on_attach(function(client, bufnr)
 		return
 	end
 
-	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-	keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
-	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-	keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-	keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
+	keymap.set("n", "gD", function()
+		vim.lsp.buf.declaration()
+	end, opts) -- got to declaration
+	keymap.set("n", "gd", function()
+		vim.lsp.buf.definition()
+	end, opts) -- see definition and make edits in window
+	keymap.set("n", "gi", function()
+		vim.lsp.buf.implementation()
+	end, opts) -- go to implementation
+	keymap.set("n", "gr", function()
+		vim.lsp.buf.references()
+	end, opts) -- go to implementation
+	keymap.set("n", "<leader>ca", function()
+		vim.lsp.buf.code_action()
+	end, opts) -- see available code actions
+	keymap.set("n", "<leader>rn", function()
+		vim.lsp.buf.rename()
+	end, opts) -- smart rename
+	keymap.set("n", "<leader>d", function()
+		vim.diagnostic.open_float()
+	end, opts) -- show diagnostics for cursor
+	keymap.set("n", "[d", function()
+		vim.diagnostic.goto_next()
+	end, opts) -- jump to previous diagnostic in buffer
+	keymap.set("n", "]d", function()
+		vim.diagnostic.goto_prev()
+	end, opts) -- jump to next diagnostic in buffer
+	keymap.set("n", "K", function()
+		vim.lsp.buf.hover()
+	end, opts) -- show documentation for what is under cursor
+	keymap.set("i", "<C-h>", function()
+		vim.lsp.buf.signature_help()
+	end, opts)
+	keymap.set("n", "<leader>ws", function()
+		vim.lsp.buf.workspace_symbol()
+	end, opts)
 
 	inlay_hints.on_attach(client, bufnr)
 end)

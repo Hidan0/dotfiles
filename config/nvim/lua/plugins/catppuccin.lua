@@ -50,7 +50,7 @@ catppuccin.setup({
 		nvimtree = true,
 		telescope = true,
 		treesitter = true,
-		lsp_saga = true,
+		lsp_saga = false,
 		mason = true,
 		native_lsp = {
 			enabled = true,

@@ -78,7 +78,6 @@ return packer.startup(function(use)
 			{ "simrat39/rust-tools.nvim" },
 		},
 	})
-	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use({ "onsails/lspkind.nvim" })
 
 	-- treesitter
