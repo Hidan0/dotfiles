@@ -1,0 +1,5 @@
+search_paths = [
+    '/home/hidan0/Documents/BNotes',
+    '/home/hidan0/Dev',
+]
+default_session = 'default'
