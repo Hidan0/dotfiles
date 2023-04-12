@@ -6,11 +6,14 @@ This dotfiles are not "plug and play", they are meant for personal use. You can 
 
 - [Current setup](#current-setup)
 - ["Installation" script](#%E2%80%9Cinstallation%E2%80%9D-script)
+  - ["Hyprland"](#hyprland)
 - [Scripts](#Scripts)
   - [Menus](#menus)
   - [Pipewire noise filter](#pipewire-noise-filter)
 
 ## Current setup
+
+> CURRENTLY TRYING WAYLAND WITH HYPRLAND
 
 - OS: [Arcolinux](https://arcolinux.com/)
 - Window Manager: awesome
@@ -25,6 +28,14 @@ This dotfiles are not "plug and play", they are meant for personal use. You can 
 - Theme: [Catppuccin](https://github.com/catppuccin/catppuccin)
 - Cursor: breeze (AUR: [breeze-snow-cursor-theme](https://aur.archlinux.org/packages/breeze-snow-cursor-theme))
 - Wallpaper: evening-sky from [catppuccin wallpapers](https://github.com/catppuccin/wallpapers)
+
+### Hyprland
+
+Dependences:
+
+```
+yay -S hyprland-dev waybar-hyprland-git xdg-desktop-portal-hyprland-git swaylock-effects swappy slurp swayidle grim swaybg wl-clipboard wofi qt5-wayland qt6-wayland polkit-kde-authentication-agent-1
+```
 
 ## "Installation" script
 
