@@ -1,15 +1,14 @@
 * {
   font-family: "JetBrains Mono";
   font-size: 13px;
-  background-color: #181825;
   color: #6c7086;
 }
 
-/* WORKSPACE */
-#workspaces button {
-  padding: 0 5px;
+window#waybar {
+  background-color: #181825;
 }
 
+/* WORKSPACE */
 #workspaces button.focused {
   box-shadow: inset 0 -3px #45475a;
 }
