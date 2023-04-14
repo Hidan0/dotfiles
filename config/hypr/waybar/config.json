@@ -57,7 +57,7 @@
     },
     "scroll-step": 5,
     "on-click-right": "pavucontrol",
-    "on-click": "amixer set Master toggle",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "ignored-sinks": ["Easy Effects Sink"]
   },
   "battery": {
