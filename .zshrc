@@ -74,6 +74,7 @@ alias pac='sudo pacman --color auto'
 alias update='sudo pacman -Syyu'
 alias yay='yay --color auto'
 alias yup='yay -Syu'
+alias pup='paru -Syu'
 
 # University
 alias anno1='cd ~/University/Anno1/'
