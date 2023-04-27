@@ -150,6 +150,11 @@ lsp.on_attach(function(client, bufnr)
 		vim.lsp.buf.workspace_symbol()
 	end, opts)
 
+	if client.name == "rust_analyzer" then
+		keymap.set("n", "<leader>ca", rstools.code_action_group.code_action_group, opts)
+		keymap.set("n", "K", rstools.hover_actions.hover_actions, opts)
+	end
+
 	inlay_hints.on_attach(client, bufnr)
 end)
 

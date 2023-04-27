@@ -83,3 +83,12 @@ keymap.set("n", "<C-h>", "<Cmd>TmuxNavigateLeft<CR>", opts)
 keymap.set("n", "<C-j>", "<Cmd>TmuxNavigateDown<CR>", opts)
 keymap.set("n", "<C-k>", "<Cmd>TmuxNavigateUp<CR>", opts)
 keymap.set("n", "<C-l>", "<Cmd>TmuxNavigateRight<CR>", opts)
+
+-- DAP
+keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>")
+keymap.set("n", "<leader>dus", function()
+	require("dapui").toggle()
+end)
+keymap.set("n", "<leader>duk", function()
+	require("dapui").eval()
+end)

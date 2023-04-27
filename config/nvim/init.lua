@@ -26,3 +26,4 @@ require("plugins.presence")
 require("plugins.markdown-preview")
 
 require("plugins.colorizer")
+require("plugins.dapui")
