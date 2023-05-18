@@ -49,11 +49,11 @@
     "format-bluetooth": "{volume}% {icon}",
     "format-muted": "---- ",
     "format-icons": {
-      "headphone": "",
+      "headphone": " ",
       "phone": "",
       "portable": "",
       "car": "",
-      "default": ["", ""]
+      "default": ["", " "]
     },
     "scroll-step": 5,
     "on-click-right": "pavucontrol",
@@ -66,11 +66,10 @@
       "warning": 30,
       "critical": 15
     },
-    "format-alt": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
-    "format-plugged": "{capacity}% ",
-    "format": "{time} {icon}",
-    "format-icons": ["", "", "", "", ""]
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": [" ", " ", " ", " ", " "]
   },
   "backlight": {
     "format": "{percent}% {icon}",
