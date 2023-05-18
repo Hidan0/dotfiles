@@ -19,7 +19,7 @@ yay -S ttf-iosevka-nerd
 yay -S noto-fonts-emoji
 yay -S ttf-symbola
 
-yay -S nerd-fonts-complete
+yay -S ttf-jetbrains-mono-nerd
 
 echo "Done."
 
