@@ -13,7 +13,7 @@ exec swaybg -m fill -i $HOME/.config/awesome/themes/catppuccin/jstreet.jpg &
 
 exec waybar -c $HOME/.config/hypr/waybar/config.json -s $HOME/.config/hypr/waybar/style.css &
 
-exec swayidle -w timeout 1200 'exec ~/.config/hypr/scripts/lockscreen' timeout 1260 'systemctl suspend' &
+# exec swayidle -w timeout 1200 'exec ~/.config/hypr/scripts/lockscreen' timeout 1260 'systemctl suspend' &
 
 /usr/lib/polkit-kde-authentication-agent-1 &
 
