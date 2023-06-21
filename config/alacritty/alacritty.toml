@@ -1,0 +1,81 @@
+[window]
+opacity = 0.55
+title = "Alacritty"
+
+[scrolling]
+history = 50000
+
+[font]
+normal.family= "JetbrainsMono Nerd Font"
+normal.style= "Regular"
+
+bold.family = "JetbrainsMono Nerd Font"
+bold.style = "Bold"
+
+italic.family = "JetbrainsMono Nerd Font"
+italic.style = "Italic"
+
+bold_italic.family = "JetbrainsMono Nerd Font"
+bold_italic.style = "Bold Italic"
+
+size = 12.0
+
+[colors]
+primary.background= "#1E1E2E"
+primary.foreground= "#CDD6F4"
+primary.dim_foreground= "#CDD6F4" 
+primary.bright_foreground= "#CDD6F4"
+
+cursor.text = "#1E1E2E"
+cursor.cursor = "#F5E0DC"
+
+vi_mode_cursor.text = "#1E1E2E"
+vi_mode_cursor.cursor = "#B4BEFE"
+
+search.matches.foreground = "#1E1E2E" 
+search.matches.background =  "#A6ADC8"
+search.focused_match.foreground = "#1E1E2E"
+search.focused_match.background = "#A6E3A1"
+
+hints.start.foreground = "#1E1E2E"
+hints.start.background = "#F9E2AF"
+hints.end.foreground = "#1E1E2E"
+hints.end.background = "#A6ADC8"
+
+selection.text = "#1E1E2E" 
+selection.background = "#F5E0DC"
+
+footer_bar.foreground = "#1E1E2E" 
+footer_bar.background= "#A6ADC8" 
+
+normal.black = "#45475A"
+normal.red = "#F38BA8"
+normal.green = "#A6E3A1" 
+normal.yellow = "#F9E2AF" 
+normal.blue = "#89B4FA" 
+normal.magenta = "#F5C2E7" 
+normal.cyan = "#94E2D5" 
+normal.white = "#BAC2DE" 
+
+bright.black = "#585B70" 
+bright.red = "#F38BA8" 
+bright.green = "#A6E3A1" 
+bright.yellow = "#F9E2AF"
+bright.blue = "#89B4FA" 
+bright.magenta = "#F5C2E7" 
+bright.cyan = "#94E2D5" 
+bright.white = "#A6ADC8" 
+
+dim.black = "#45475A"
+dim.red = "#F38BA8"
+dim.green = "#A6E3A1"
+dim.yellow = "#F9E2AF"
+dim.blue = "#89B4FA"
+dim.magenta = "#F5C2E7"
+dim.cyan = "#94E2D5"
+dim.white = "#BAC2DE"
+
+indexed_colors = [
+  { index = 16, color = "#FAB387" },
+  { index = 17, color = "#F5E0DC" }
+]
