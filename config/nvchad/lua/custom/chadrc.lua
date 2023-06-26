@@ -1,7 +1,7 @@
 ---@type ChadrcConfig
 local M = {}
 M.ui = {
-  theme = "kanagawa",
+  theme = "catppuccin",
   theme_toggle = { "catppuccin", "kanagawa" },
   lsp_semantic_tokens = true,
 }
