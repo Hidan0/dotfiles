@@ -12,9 +12,8 @@ local plugins = {
 		opts = {
 			ensure_installed = {
 				"rust-analyzer",
-				"prettier",
+				"prettierd",
 				"stylua",
-				"eslint_d",
 				"rustfmt",
 				"typescript-language-server",
 			},
@@ -73,10 +72,31 @@ local plugins = {
 	},
 
 	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	},
+
+	{
 		"hrsh7th/nvim-cmp",
+		dependencies = {
+			{
+				"zbirenbaum/copilot-cmp",
+				config = function()
+					require("copilot_cmp").setup()
+				end,
+			},
+		},
 		opts = function()
 			local M = require("plugins.configs.cmp")
 			table.insert(M.sources, { name = "crates" })
+			table.insert(M.sources, { name = "copilot" })
 			return M
 		end,
 	},
