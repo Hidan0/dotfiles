@@ -28,7 +28,7 @@ lspconfig.tsserver.setup({
 	capabilities = capabilities,
 })
 
-lspconfig.tailwindcss.setup({
+lspconfig.volar.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })

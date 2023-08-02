@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 36,
-  "modules-left": ["wlr/workspaces", "hyprland/window"],
+  "modules-left": ["wlr/workspaces"],
   "modules-center": [],
   "modules-right": [
     "memory",
@@ -75,11 +75,6 @@
     "format": "{percent}% {icon}",
     "scroll-step": 5,
     "format-icons": ["", "", "", "", "", "", "", "", ""]
-  },
-  "hyprland/window": {
-    "format": "👉 {}",
-    "separate-outputs": true,
-    "max-length": 30
   },
   "bluetooth": {
     "format": " {status}",
