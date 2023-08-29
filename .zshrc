@@ -29,6 +29,7 @@ export EDITOR='helix'
 export VISUAL='helix'
 
 export TERM='alacritty'
+export BROWSER='brave'
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
