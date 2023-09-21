@@ -199,3 +199,10 @@ unsetopt autocd beep extendedglob nomatch notify
 
 pfetch 
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/home/hidan0/.bun/_bun" ] && source "/home/hidan0/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
