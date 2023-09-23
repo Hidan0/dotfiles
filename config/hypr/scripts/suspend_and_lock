@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-# ~/.config/hypr/scripts/lockscreen & 
+~/.config/hypr/scripts/lockscreen & 
 
 sleep 3
 
