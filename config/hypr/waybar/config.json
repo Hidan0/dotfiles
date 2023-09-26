@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 36,
-  "modules-left": ["wlr/workspaces"],
+  "modules-left": ["hyprland/workspaces"],
   "modules-center": [],
   "modules-right": [
     "memory",
@@ -18,9 +18,8 @@
   "spacing": 5,
   "mode": "dock",
 
-  "wlr/workspaces": {
+  "hyprland/workspaces": {
     "format": "{icon}",
-    "on-click": "activate",
     "format-icons": {
       "0": "",
       "1": "",
