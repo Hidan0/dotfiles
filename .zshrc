@@ -25,8 +25,10 @@ setopt SHARE_HISTORY
 
 export HISTCONTROL=ignoreboth:erasedups
 
-export EDITOR='helix'
-export VISUAL='helix'
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+export ZK_NOTEBOOK_DIR="$HOME/notes/zet"
 
 export TERM='alacritty'
 export BROWSER='brave'
