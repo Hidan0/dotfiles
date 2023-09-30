@@ -13,21 +13,7 @@ return {
     }, -- snippet engine
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "onsails/lspkind.nvim", -- vs-code like pictograms
-    {
-      "saecki/crates.nvim",
-      event = { "BufRead Cargo.toml" },
-      config = function()
-        local crates = require("crates")
-        crates.setup()
-        crates.show()
-      end,
-    },
-    {
-      "zbirenbaum/copilot-cmp",
-      config = function()
-        require("copilot_cmp").setup()
-      end,
-    },
+    "zbirenbaum/copilot-cmp",
   },
   config = function()
     local cmp = require("cmp")
@@ -77,8 +63,8 @@ return {
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
-        { name = "crates" },
         { name = "copilot" },
+        -- creates are loaded from a different file
       },
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
