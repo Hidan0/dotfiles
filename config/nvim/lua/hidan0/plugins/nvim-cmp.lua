@@ -13,7 +13,7 @@ return {
     }, -- snippet engine
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "onsails/lspkind.nvim", -- vs-code like pictograms
-    "zbirenbaum/copilot-cmp",
+    { "zbirenbaum/copilot-cmp", config = true },
   },
   config = function()
     local cmp = require("cmp")
@@ -64,12 +64,27 @@ return {
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
         { name = "copilot" },
-        -- creates are loaded from a different file
+        -- crates are loaded from a different file
       },
-      -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
-        fields = { "kind", "abbr" },
-        format = lspkind.cmp_format(),
+        format = function(entry, vim_item)
+          local custom_kinds = {
+            Copilot = "",
+          }
+
+          vim_item.kind =
+            string.format("%s %s", lspkind.presets.default[vim_item.kind] or custom_kinds[vim_item.kind], vim_item.kind)
+          vim_item.menu = ({
+            nvim_lsp = "󱐌",
+            luasnip = "",
+            path = "",
+            buffer = "",
+            crates = "󰆨",
+            copilot = "",
+          })[entry.source.name]
+
+          return vim_item
+        end,
       },
       window = {
         completition = {
