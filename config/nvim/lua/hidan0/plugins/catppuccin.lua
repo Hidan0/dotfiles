@@ -16,6 +16,11 @@ return {
         },
         rainbow_delimiters = true,
         telescope = true,
+        indent_blankline = {
+          enabled = true,
+          scope_color = "mauve",
+          colored_indent_levels = false,
+        },
       },
     })
     vim.cmd([[colorscheme catppuccin]])
