@@ -101,6 +101,12 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       }),
+
+      -- configure marksman
+      lspconfig["marksman"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }),
     })
   end,
 }
