@@ -31,6 +31,7 @@ return {
         }),
         formatting.gofmt, -- go formatter
         formatting.goimports, -- go formatter
+        formatting.ocamlformat, -- ocaml formatter
       },
       -- configure format on save
       on_attach = function(current_client, bufnr)

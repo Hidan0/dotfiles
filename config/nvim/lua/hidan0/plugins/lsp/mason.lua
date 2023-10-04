@@ -37,6 +37,7 @@ return {
         "volar",
         "bashls",
         "gopls",
+        "ocamllsp",
       },
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true, -- not the same as ensure_installed
@@ -50,6 +51,7 @@ return {
         "eslint_d", -- ts/js linter
         "goimports", -- go formatter
         "gofmt",
+        "ocamlformat",
       },
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true,

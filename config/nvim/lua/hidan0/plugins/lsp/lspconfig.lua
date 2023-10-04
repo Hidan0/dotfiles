@@ -95,6 +95,12 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       }),
+
+      -- configure ocaml
+      lspconfig["ocamllsp"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }),
     })
   end,
 }
