@@ -44,5 +44,6 @@ opt.undofile = true
 opt.fileencoding = "utf-8"
 
 -- spelling
-opt.spelllang = "en_us"
+opt.spelllang = "en_us,it,cjk"
+opt.spellsuggest = "best,9"
 opt.spell = true
