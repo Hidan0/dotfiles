@@ -42,3 +42,7 @@ opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
 
 opt.fileencoding = "utf-8"
+
+-- spelling
+opt.spelllang = "en_us"
+opt.spell = true
