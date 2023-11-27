@@ -22,7 +22,6 @@ return {
               granularity = {
                 group = "module",
               },
-              prefix = "self",
             },
             cargo = {
               loadOutDirsFromCheck = true,
