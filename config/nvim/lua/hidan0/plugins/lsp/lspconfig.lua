@@ -109,7 +109,7 @@ return {
       on_attach = on_attach,
     })
 
-    lspconfig["erlangls"].setup({
+    lspconfig["elp"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
