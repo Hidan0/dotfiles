@@ -14,6 +14,9 @@ return {
         rust = function()
           return nil
         end,
+        zig = function()
+          return nil
+        end,
       },
       query = {
         [""] = "rainbow-delimiters",
