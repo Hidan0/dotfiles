@@ -1,5 +1,6 @@
 search_paths = [
     '/home/hidan0/Documents/Books',
     '/home/hidan0/Dev',
+    '/home/hidan0/.dotfiles'
 ]
 default_session = 'default'
