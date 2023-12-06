@@ -38,6 +38,7 @@ return {
         "gopls",
         "ocamllsp",
         "marksman",
+        "clangd",
       },
 
       mason_tool_installer.setup({
@@ -48,6 +49,8 @@ return {
           "black", -- python formatter
           "pylint", -- python linter
           "eslint_d", -- js linter
+          "clang-format",
+          "codelldb", -- c/c++ debugger
         },
       }),
       -- auto-install configured servers (with lspconfig)

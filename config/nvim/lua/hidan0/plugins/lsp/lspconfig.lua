@@ -109,12 +109,14 @@ return {
       on_attach = on_attach,
     })
 
-    lspconfig["erlangls"].setup({
+    -- configure zig
+    lspconfig["zls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
 
-    lspconfig["zls"].setup({
+    -- configure c/c++
+    lspconfig["clangd"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
