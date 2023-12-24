@@ -5,7 +5,6 @@ This dotfiles are not "plug and play", they are meant for personal use. You can 
 ## Table of Contents
 
 - [Current setup](#current-setup)
-- ["Installation" script](#%E2%80%9Cinstallation%E2%80%9D-script)
   - ["Hyprland"](#hyprland)
 - [Scripts](#Scripts)
   - [Menus](#menus)
@@ -36,12 +35,6 @@ Dependences:
 ```
 yay -S hyprland-dev waybar-hyprland-git xdg-desktop-portal-hyprland-git swaylock-effects swappy slurp swayidle grim swaybg wl-clipboard wofi qt5-wayland qt6-wayland polkit-kde-authentication-agent-1
 ```
-
-## "Installation" script
-
-The "installation" script is `link_dot.lua`; this is a really bad written script that creates a symbolic link between the content of the repository and the home directory.
-The content of `config` will be linked at `$HOME/.config/`(Ex: `$HOME/.config/alacritty -> .dotfiles/config/alacritty`).
-If the file/dir is already present (symbolic link included) a new link will be created, the old one will be renamed (yeah it's pretty bad).
 
 ## Scripts
 
