@@ -5,6 +5,7 @@ return {
   config = function()
     require("catppuccin").setup({
       integrations = {
+        alpha = true,
         cmp = true,
         gitsigns = true,
         nvimtree = true,
