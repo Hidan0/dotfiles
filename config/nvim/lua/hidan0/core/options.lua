@@ -25,6 +25,7 @@ opt.background = "dark"
 opt.signcolumn = "yes"
 opt.scrolloff = 8
 opt.updatetime = 300
+opt.colorcolumn = "88"
 
 -- backspace
 opt.backspace = "indent,eol,start"
