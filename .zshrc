@@ -50,7 +50,7 @@ fi
 PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 
 # esp-rs env variables 
-source $HOME/export-esp.sh
+# source $HOME/export-esp.sh
 
 ### ALIASES ###
 alias hx='helix'
@@ -201,13 +201,3 @@ unsetopt autocd beep extendedglob nomatch notify
 
 pfetch 
 eval "$(starship init zsh)"
-
-# bun completions
-[ -s "/home/hidan0/.bun/_bun" ] && source "/home/hidan0/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# opam configuration
-[[ ! -r /home/hidan0/.opam/opam-init/init.zsh ]] || source /home/hidan0/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

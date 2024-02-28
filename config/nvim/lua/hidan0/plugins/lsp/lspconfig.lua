@@ -97,12 +97,6 @@ return {
       on_attach = on_attach,
     })
 
-    -- configure ocaml
-    lspconfig["ocamllsp"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
     -- configure marksman
     lspconfig["marksman"].setup({
       capabilities = capabilities,

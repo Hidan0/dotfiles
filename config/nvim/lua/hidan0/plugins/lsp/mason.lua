@@ -36,7 +36,6 @@ return {
         "volar",
         "bashls",
         "gopls",
-        "ocamllsp",
         "marksman",
         "clangd",
       },
