@@ -1,7 +1,0 @@
-#!/usr/bin/zsh
-
-# ~/.config/hypr/scripts/lockscreen & 
-
-# sleep 3
-
-systemctl suspend

@@ -2,52 +2,41 @@
 
 This dotfiles are not "plug and play", they are meant for personal use. You can of course use them, but to make them work you'll probably need some debugging.
 
-## Table of Contents
-
-- [Current setup](#current-setup)
-  - ["Hyprland"](#hyprland)
-- [Scripts](#Scripts)
-  - [Menus](#menus)
-  - [Pipewire noise filter](#pipewire-noise-filter)
-
 ## Current setup
 
-> CURRENTLY TRYING WAYLAND WITH HYPRLAND
+### Terminal and shell
 
-- OS: [Arcolinux](https://arcolinux.com/)
-- Window Manager: awesome
-- Bar: wibar
-- Compositor: picom (AUR: [picom-jonaburg-git](https://aur.archlinux.org/packages/picom-jonaburg-git))
-- Sound: pipewire
-- Shell: zsh + starship
-- Console: alacritty
-- Application launcher: dmenu + rofi
-- Lockscreen: betterlockscreen
+- Terminal: Alacritty
+- Shell: zsh + starship + oh-my-zsh
 - Editor: nvim
-- Theme: [Catppuccin](https://github.com/catppuccin/catppuccin)
-- Cursor: breeze (AUR: [breeze-snow-cursor-theme](https://aur.archlinux.org/packages/breeze-snow-cursor-theme))
-- Wallpaper: evening-sky from [catppuccin wallpapers](https://github.com/catppuccin/wallpapers)
+- Workspaces: tmux + tmux-sessionizer + tmp
 
 ### Hyprland
 
-Dependences:
+Main:
 
 ```
-yay -S hyprland-dev waybar-hyprland-git xdg-desktop-portal-hyprland-git swaylock-effects swappy slurp swayidle grim swaybg wl-clipboard wofi qt5-wayland qt6-wayland polkit-kde-authentication-agent-1
+yay -S hyprland waybar-hyprland-git xdg-desktop-portal-hyprland polkit-kde-agent \
+       qt5-wayland qt6-wayland wl-clipboard wofi mako
 ```
 
-## Scripts
+Lock screen and idle:
 
-### Menus
+```
+yay -S swaylock-effects swayidle nwg-bar
+```
 
-**Rofi** is required.
+Background image and screenshot utilities:
 
-- `powermenu.sh` display a simple powermenu using rofi.
+```
+yay -S swww swappy slurp grim
+```
 
-Other menus using rofi:
+Other utilities:
 
-- rofi-calc ([git](https://github.com/svenstaro/rofi-calc))
-- rofi-emoji ([git](https://github.com/Mange/rofi-emoji))
+```
+yay -S brillo pavucontrols blueberry
+```
 
 ### Pipewire noise filter
 
