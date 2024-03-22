@@ -8,7 +8,7 @@ for _prs in "${_ps[@]}"; do
 done
 
 swww init &
-swww img $HOME/Documents/JStreet_edit.jpg &
+swww img /home/hidan0/.config/hypr/img/JStreet_edit.png &
 
 nm-applet --indicator &
 
