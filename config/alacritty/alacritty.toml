@@ -6,16 +6,16 @@ title = "Alacritty"
 history = 50000
 
 [font]
-normal.family = "JetBrainsMono NF"
+normal.family = "JetBrainsMono Nerd Font"
 normal.style= "Regular"
 
-bold.family = "JetBrainsMono NF"
+bold.family = "JetBrainsMono Nerd Font"
 bold.style = "Bold"
 
-italic.family = "JetBrainsMono NF"
+italic.family = "JetBrainsMono Nerd Font"
 italic.style = "Italic"
 
-bold_italic.family = "JetBrainsMono NF"
+bold_italic.family = "JetBrainsMono Nerd Font"
 bold_italic.style = "Bold Italic"
 
 size = 12.0
