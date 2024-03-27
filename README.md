@@ -85,7 +85,7 @@ tmux source ~/.tmux.conf
 
 ```
 yay -S alacritty zsh starship oh-my-zsh-git neovim yarn npm wget luarocks ripgrep fd \
-       tmux pfetch
+       tmux pfetch zk libqalculate
 ```
 
 ## NVIDIA graphics drivers
@@ -126,7 +126,7 @@ The theme I use is _Catppuccin mocha_.
 
 ```
 yay -S nwg-look papirus-icon-theme catppuccin-gtk-theme-mocha nerd-fonts-git \
-       ttf-jetbrains-mono-nerd ttf-jetbrains-mono
+       ttf-jetbrains-mono-nerd ttf-jetbrains-mono noto-fonts-emoji
 ```
 
 ## TODO: Pipewire noise filter
@@ -136,3 +136,9 @@ yay -S nwg-look papirus-icon-theme catppuccin-gtk-theme-mocha nerd-fonts-git \
 The scripts copies the _systemd unit_ file in the configuration directory and enables the service.
 
 Reference: https://medium.com/@gamunu/linux-noise-cancellation-b9f997f6764d
+
+## TODO other
+
+```
+yay -S okular
+```
