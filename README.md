@@ -122,23 +122,39 @@ The theme I use is _Catppuccin mocha_.
 
 - Icon theme `papirus-icon-theme` + [catppuccin theme](https://github.com/catppuccin/papirus-folders)
 - GTK theme: `catppuccin-gtk-theme-mocha`
-- Fonts: `nerd-fonts-git ttf-jetbrains-mono-nerd ttf-jetbrains-mono`
+- Fonts: `nerd-fonts-git` (install it later, it takes some time)
 
 ```
 yay -S nwg-look papirus-icon-theme catppuccin-gtk-theme-mocha nerd-fonts-git \
-       ttf-jetbrains-mono-nerd ttf-jetbrains-mono noto-fonts-emoji
+       noto-fonts-emoji
 ```
 
-## TODO: Pipewire noise filter
+## Pipewire noise filter
 
-**noise-suppression-for-voice** is required ([git](https://github.com/werman/noise-suppression-for-voice), [AUR](https://aur.archlinux.org/packages/noise-suppression-for-voice)).
+For noise suppression, I've integrated `noise-suppression-for-voice` plugin ([git](https://github.com/werman/noise-suppression-for-voice)).
 
-The scripts copies the _systemd unit_ file in the configuration directory and enables the service.
+Link the `pipewire` dir and make a symbolic link of `*.service` file into `.config/systemd/user`.
+
+Reload systemd user unit files:
+
+```
+$ systemctl --user daemon-reload
+```
+
+Enable the created systemd service:
+
+```
+$ systemctl --user enable pipewire-input-filter-chain.service
+```
 
 Reference: https://medium.com/@gamunu/linux-noise-cancellation-b9f997f6764d
 
-## TODO other
+```
+yay -S noise-suppression-for-voice
+```
+
+## Other application that I may need
 
 ```
-yay -S okular
+yay -S okular webcord spotify-launcher telegram-desktop ranger
 ```
