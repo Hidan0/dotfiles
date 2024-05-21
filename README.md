@@ -118,15 +118,15 @@ yay -S bluez bluez-utils
 
 Use `nwg-look` to set themes and GTK related stuff.
 
-The theme I use is _Catppuccin mocha_.
+The theme I use is [_gruvbox material_](https://github.com/sainnhe/gruvbox-material).
 
-- Icon theme `papirus-icon-theme` + [catppuccin theme](https://github.com/catppuccin/papirus-folders)
-- GTK theme: `catppuccin-gtk-theme-mocha`
+- Icon theme `gruvbox-material-icon-theme-git`
+- GTK theme: `gruvbox-material-gtk-theme-git`
 - Fonts: `nerd-fonts-git` (install it later, it takes some time)
 
 ```
-yay -S nwg-look papirus-icon-theme catppuccin-gtk-theme-mocha nerd-fonts-git \
-       noto-fonts-emoji
+yay -S nwg-look gruvbox-material-gtk-theme-git gruvbox-material-icon-theme-git \
+       nerd-fonts-git noto-fonts-emoji
 ```
 
 ## Pipewire noise filter

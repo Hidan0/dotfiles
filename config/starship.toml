@@ -1,5 +1,4 @@
 right_format = "$time"
-
 add_newline = false
 
 [character] # The name of the module we are configuring is "character"

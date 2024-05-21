@@ -15,9 +15,6 @@ require("lazy").setup({
   { import = "hidan0.plugins" },
   { import = "hidan0.plugins.lsp" },
 }, {
-  install = {
-    colorscheme = { "catppuccin" },
-  },
   checker = {
     enabled = true,
     notify = false,

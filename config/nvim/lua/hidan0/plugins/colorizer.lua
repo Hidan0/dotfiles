@@ -15,9 +15,12 @@ return {
         "xml",
         "php",
         "markdown",
+        "conf",
+        "zsh",
       },
       user_default_options = {
         names = false,
+        RRGGBB = true,
         RRGGBBAA = true,
         css = true,
         css_fn = true,

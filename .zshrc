@@ -34,9 +34,9 @@ export TERM='alacritty'
 export BROWSER='brave'
 
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+--color=bg+:#1d2021,bg:#141617,spinner:#7daea3,hl:#ea6962 \
+--color=fg:#d4be98,header:#ea6962,info:#d3869b,pointer:#7daea3 \
+--color=marker:#7daea3,fg+:#ddc7a1,prompt:#e78a4e,hl+:#ea6962"
 
 # PATH
 if [ -d "$HOME/.bin" ] ;
@@ -137,6 +137,7 @@ alias jctl="journalctl -p 3 -xb"
 #shutdown or reboot
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
+alias sus="systemctl suspend"
 
 # git 
 alias addall='git add .' # Git Add All

@@ -8,7 +8,7 @@ return {
     lualine.setup({
       options = {
         icons_enabled = true,
-        theme = "catppuccin",
+        theme = "gruvbox-material",
         disabled_filetypes = {
           "alpha",
           "dashboard",
