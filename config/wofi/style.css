@@ -2,9 +2,10 @@ window {
   font-family: "JetBrains Mono";
   font-size: 15px;
   margin: 0px;
-  border: 2px solid #74c7ec;
+  border: 2px solid #e78a4e;
   border-radius: 15px;
-  color: #cdd6f4;
+  color: #d4be98;
+  background-color: #282828;
 }
 
 #input {
@@ -13,7 +14,7 @@ window {
   padding-left: 20px;
   border: none;
   font-weight: bold;
-  background: #313244;
+  background: #1d2021;
   outline: none;
   border-radius: 15px;
   margin: 10px;
@@ -57,13 +58,13 @@ window {
 }
 
 #entry:selected {
-  color: #1e1e2e;
+  color: #141617;
   margin: 0px 0px;
   border: none;
   border-radius: 15px;
   background: linear-gradient(
     45deg,
-    rgba(137, 180, 250, 1) 30%,
-    rgba(180, 190, 254, 1) 100%
+    rgba(231, 138, 78, 1) 30%,
+    rgba(234, 105, 98, 1) 100%
   );
 }
