@@ -23,10 +23,10 @@ local on_attach = function(client, bufnr)
   keymap.set("n", "<leader>d", function()
     vim.diagnostic.open_float()
   end, opts) -- show diagnostics for cursor
-  keymap.set("n", "[d", function()
+  keymap.set("n", "]d", function()
     vim.diagnostic.goto_next()
   end, opts) -- jump to previous diagnostic in buffer
-  keymap.set("n", "]d", function()
+  keymap.set("n", "[d", function()
     vim.diagnostic.goto_prev()
   end, opts) -- jump to next diagnostic in buffer
   keymap.set("n", "K", function()
