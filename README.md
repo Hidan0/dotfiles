@@ -158,3 +158,37 @@ yay -S noise-suppression-for-voice
 ```
 yay -S okular webcord spotify-launcher telegram-desktop ranger
 ```
+
+## Firefox setup
+
+Must have extensions:
+
+- Sidebery
+- Privacy Badger
+- PopUpOFF
+- uBlock Origin
+- DuckDuckGo Privacy Essentials
+
+### Minimal look and sidebery
+
+The minimal look is based on this morrolinux [guide](https://gist.github.com/morrolinux/87aa37396432ea5d14a9220bc4892100).
+
+Go to `about:config` and set all of the following to `true`:
+
+```
+toolkit.legacyUserProfileCustomizations.stylesheets
+layers.acceleration.force-enabled
+gfx.webrender.all
+gfx.webrender.enabled
+layout.css.backdrop-filter.enabled
+svg.context-properties.content.enabled
+
+# WORKAROUND FOR BAR HIDING ON DRAG EVENT
+widget.gtk.ignore-bogus-leave-notify = 1
+```
+
+1. Find your Firefox profile folder (`about:support` --> "Profile Directory")
+2. Create a folder named `chrome` inside it
+3. Create a file named `userChrome.css` inside the `chrome` folder you just created
+4. Copy the content of `config/sidebery/userChrome.css` or link it
+5. Restart Firefox
