@@ -49,8 +49,8 @@ yay -S hyprland hypridle hyprlock xdg-desktop-portal-hyprland waybar \
 
 ### Terminal and shell
 
-In my terminal setup, I've got `alacritty` for speed, `zsh` with `oh-my-zsh` for extra
-features, and `starship` for a stylish prompt.
+In my terminal setup, I've got `alacritty` for speed, `zsh` with `zinit` for extra
+features as plugins, and `oh-my-posh` for a stylish prompt.
 
 To set `zsh` as the [default shell](https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell) run:
 
@@ -84,7 +84,7 @@ tmux source ~/.tmux.conf
 ---
 
 ```
-yay -S alacritty zsh starship oh-my-zsh-git neovim yarn npm wget luarocks ripgrep fd \
+yay -S alacritty zsh oh-my-posh neovim yarn npm wget luarocks ripgrep fd \
        tmux pfetch zk libqalculate
 ```
 
