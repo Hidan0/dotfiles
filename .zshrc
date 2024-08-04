@@ -1,29 +1,40 @@
-# User configuration
-export MANPAGER='less'
-
-####   ARCOLINUX SETTINGS   ####
-export PAGER='most'
-
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  if [ -f "$HOME/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]; then
-    source $HOME/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh 
-  fi
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Set the directory for zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download zinit if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-setopt GLOB_DOTS
-#share commands between terminal instances or not
-# unsetopt SHARE_HISTORY
-setopt SHARE_HISTORY
+# Source/load zinit
+source "${ZINIT_HOME}/zinit.zsh"
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-export HISTCONTROL=ignoreboth:erasedups
+# zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add in snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
+
+# load completions
+autoload -U compinit && compinit
+
+zinit cdreplay -q
 
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -31,7 +42,6 @@ export VISUAL='nvim'
 export ZK_NOTEBOOK_DIR="$HOME/notes/zet"
 
 export TERM='alacritty'
-export BROWSER='brave'
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#1d2021,bg:#141617,spinner:#7daea3,hl:#ea6962 \
@@ -39,18 +49,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#7daea3,fg+:#ddc7a1,prompt:#e78a4e,hl+:#ea6962"
 
 # PATH
-if [ -d "$HOME/.bin" ] ;
-  then PATH="$HOME/.bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
-fi
-
 PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
-
-# esp-rs env variables 
-# source $HOME/export-esp.sh
 
 ### ALIASES ###
 alias hx='helix'
@@ -124,7 +123,7 @@ alias rams='rate-mirrors --allow-root --disable-comments --protocol https arch  
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
-#iso and version used to install ArcoLinux
+#iso and version
 alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
 alias isoo="cat /etc/dev-rel"
 
@@ -139,23 +138,9 @@ alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
 alias sus="systemctl suspend"
 
-# git 
-alias addall='git add .' # Git Add All
-alias gadd='git add ' # Git Add
-alias branch='git branch'
-alias gclone='git clone'
-alias commit='git commit -m'
-alias gfetch='git fetch'
-alias gstatus='git status'
-alias pull='git pull origin'
-alias push='git push origin'
-
 # tmux
 alias welcome='tmux new -s default'
 alias tas='tmux attach-session -t'
-
-# lf
-alias lf='~/.dotfiles/scripts/lfub.sh'
 
 alias !!=$history[1]
 
@@ -186,19 +171,34 @@ ex ()
   fi
 }
 
-#[[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
-
-zstyle ':completion:*' completer _complete _ignored
-zstyle :compinstall filename '/home/hidan0/.zshrc'
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+# History
+HISTSIZE=5000
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=5000
-unsetopt autocd beep extendedglob nomatch notify
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
-pfetch 
-eval "$(starship init zsh)"
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Shell integration's
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
