@@ -14,7 +14,7 @@
 * Shrink sidebar until hovered 
 */
 :root {
-  --thin-tab-width: 36px;
+  --thin-tab-width: 34px;
   --wide-tab-width: 300px;
 }
 
