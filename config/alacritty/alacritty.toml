@@ -1,7 +1,7 @@
-live_config_reload = true
+general.live_config_reload = true
 
-import = [
-  "/usr/share/alacritty/themes/gruvbox_material_hard_dark.toml"
+general.import = [
+  "/usr/share/alacritty/themes/catppuccin_mocha.toml"
 ]
 
 [bell]
@@ -12,7 +12,7 @@ duration = 0
 draw_bold_text_with_bright_colors = true
 
 [window]
-opacity = 0.85 
+opacity = 0.95 
 title = "Alacritty"
 
 [scrolling]
@@ -40,5 +40,5 @@ y = 0
 [mouse]
 hide_when_typing = true
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
