@@ -33,10 +33,19 @@ export ZK_NOTEBOOK_DIR="$HOME/notes/zet"
 
 export TERM='alacritty'
 
+# gruvbox
+# export FZF_DEFAULT_OPTS=" \
+# --color=bg+:#1d2021,bg:#141617,spinner:#7daea3,hl:#ea6962 \
+# --color=fg:#d4be98,header:#ea6962,info:#d3869b,pointer:#7daea3 \
+# --color=marker:#7daea3,fg+:#ddc7a1,prompt:#e78a4e,hl+:#ea6962"
+#
+
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#1d2021,bg:#141617,spinner:#7daea3,hl:#ea6962 \
---color=fg:#d4be98,header:#ea6962,info:#d3869b,pointer:#7daea3 \
---color=marker:#7daea3,fg+:#ddc7a1,prompt:#e78a4e,hl+:#ea6962"
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a \
+--multi"
 
 # PATH
 PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
@@ -190,3 +199,9 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/hidan0/.dart-cli-completion/zsh-config.zsh ]] && . /home/hidan0/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
