@@ -38,6 +38,7 @@ return {
         "gopls",
         "marksman",
         "clangd",
+        "tinymist",
       },
 
       mason_tool_installer.setup({

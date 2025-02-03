@@ -118,5 +118,16 @@ return {
         "--offset-encoding=utf-16",
       },
     })
+
+    -- configure typst
+    lspconfig["tinymist"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        formatterMode = "typstyle",
+        exportPdf = "onType",
+        semanticTokens = "disable",
+      },
+    })
   end,
 }
