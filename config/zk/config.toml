@@ -1,0 +1,35 @@
+[notebook]
+dir = "~/notes/zet"
+
+[note]
+language = "it"
+default-title = "Untitled"
+filename = "{{format-date now 'timestamp'}}"
+extension = "md"
+template = "default.md"
+
+[format.markdown]
+link-format = "wiki"
+hashtags = true
+colon-tags = true
+multiword-tags = true 
+
+[tool]
+editor = "nvim"
+shell = "/bin/zsh"
+pager = "less -FIRX"
+fzf-preview = "bat -p --color always {-1}"
+
+[filter]
+recents = "--sort created- --created-after 'last two weeks'"
+
+[alias]
+edlast = "zk edit --limit 1 --sort modified- $@"
+recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
+
+[lsp]
+[lsp.diagnostics]
+# Report titles of wiki-links as hints.
+wiki-title = "hint"
+# Warn for dead links between notes.
+dead-link = "error"
