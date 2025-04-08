@@ -20,9 +20,6 @@ local on_attach = function(client, bufnr)
   keymap.set("n", "<leader>rn", function()
     vim.lsp.buf.rename()
   end, opts) -- smart rename
-  keymap.set("n", "<leader>d", function()
-    vim.diagnostic.open_float()
-  end, opts) -- show diagnostics for cursor
   keymap.set("n", "]d", function()
     vim.diagnostic.jump({ count = 1, float = true })
   end, opts) -- jump to previous diagnostic in buffer
