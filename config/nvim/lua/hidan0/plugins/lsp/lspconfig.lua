@@ -75,6 +75,9 @@ return {
               [vim.fn.stdpath("config") .. "/lua"] = true,
             },
           },
+          hint = {
+            enable = true,
+          },
         },
       },
     })
@@ -95,6 +98,19 @@ return {
     lspconfig["gopls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+      settings = {
+        gopls = {
+          hints = {
+            rangeVariableTypes = true,
+            parameterNames = true,
+            constantValues = true,
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            functionTypeParameters = true,
+          },
+        },
+      },
     })
 
     -- configure marksman
@@ -107,6 +123,15 @@ return {
     lspconfig["zls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+      settings = {
+        zls = {
+          enable_inlay_hints = true,
+          inlay_hints_show_builtin = true,
+          inlay_hints_exclude_single_argument = true,
+          inlay_hints_hide_redundant_param_names = false,
+          inlay_hints_hide_redundant_param_names_last_token = false,
+        },
+      },
     })
 
     -- configure c/c++
@@ -116,6 +141,16 @@ return {
       cmd = {
         "clangd",
         "--offset-encoding=utf-16",
+      },
+      settings = {
+        clangd = {
+          InlayHints = {
+            Designators = true,
+            Enabled = true,
+            ParameterNames = true,
+            DeducedTypes = true,
+          },
+        },
       },
     })
 

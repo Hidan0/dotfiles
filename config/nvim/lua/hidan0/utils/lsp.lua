@@ -2,7 +2,7 @@ local M = {}
 -- import cmp-nvim-lsp plugin
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 -- import lsp-inlayhints
-local inlay_hints = require("lsp-inlayhints")
+local inlay_hints = require("inlay-hints")
 
 local keymap = vim.keymap -- for conciseness
 local opts = { noremap = true, silent = true }
