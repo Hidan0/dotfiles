@@ -7,4 +7,11 @@ return {
       require("ibl").setup()
     end,
   },
+  {
+    "szw/vim-maximizer",
+    keys = {
+      { "<leader>wm", "<cmd>MaximizerToggle<CR>" },
+    },
+  },
+  { "neovim/nvim-lspconfig" }, -- LSP default configurations
 }

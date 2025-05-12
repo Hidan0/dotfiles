@@ -35,6 +35,12 @@ return {
     keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find buffers" }) -- list open buffers in current neovim instance
     keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Fuzzy find help tags" }) -- list available help tags
 
+    keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>") -- see definition and make edits in window
+    keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<CR>") -- go to implementation
+    keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>") -- go to references
+    keymap.set("n", "<leader>wS", "<cmd>Telescope lsp_workspace_symbols<CR>")
+    keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>") -- show  diagnostics for file
+
     keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Fuzzy find git commits" }) -- list all git commits (use <cr> to checkout) ["gc" for git commits]
     keymap.set(
       "n",

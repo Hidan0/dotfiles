@@ -2,7 +2,9 @@ return {
   "williamboman/mason.nvim",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
+    "jay-babu/mason-nvim-dap.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "mfussenegger/nvim-dap",
   },
   config = function()
     -- import mason
@@ -12,6 +14,8 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
 
     local mason_tool_installer = require("mason-tool-installer")
+
+    local mason_dap = require("mason-nvim-dap")
 
     -- enable mason and configure icons
     mason.setup({
@@ -56,5 +60,7 @@ return {
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true, -- not the same as ensure_installed
     })
+
+    mason_dap.setup()
   end,
 }
