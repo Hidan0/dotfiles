@@ -4,8 +4,12 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    bigfile = { enabled = true },
+    indent = { enabled = true },
+    quickfile = { enabled = true },
     input = { enabled = true },
-    picker = { enabled = true },
     notifier = { enabled = true },
+    scroll = { enabled = true },
+    win = { enabled = true },
   },
 }
