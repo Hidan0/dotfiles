@@ -1,4 +1,6 @@
 return {
+  -- TODO: remove
+  enalbed = false,
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
   dependencies = {
