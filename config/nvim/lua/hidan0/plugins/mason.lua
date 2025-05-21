@@ -37,7 +37,6 @@ return {
         "lua_ls",
         "pyright",
         "rust_analyzer",
-        "volar",
         "bashls",
         "gopls",
         "marksman",

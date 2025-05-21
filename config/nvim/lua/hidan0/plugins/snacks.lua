@@ -15,6 +15,7 @@ return {
       enabled = true,
       sources = {
         explorer = {
+          hidden = true,
           layout = {
             layout = { position = "right", width = 30 },
           },
@@ -357,7 +358,7 @@ return {
       desc = "Dismiss All Notifications",
     },
     {
-      "<c-i>",
+      "<m-i>",
       function()
         Snacks.terminal()
       end,
