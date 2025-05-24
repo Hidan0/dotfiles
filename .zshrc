@@ -54,11 +54,9 @@ PATH=$PATH:/home/hidan0/.cargo/bin:/home/hidan0/.local/bin
 alias hx='helix'
 
 #list
-alias ls='exa --color=always --group-directories-first'
-alias ll='exa -la --color=always --group-directories-first'
-alias la='exa -a --color=always --group-directories-first'
-alias lt='exa -aT --color=always --group-directories-first'
-alias l.="exa -a | grep -E '^\.'"
+alias ls='eza --icons=auto --color=always --group-directories-first'
+alias ll='eza --icons=auto -la --color=always --group-directories-first'
+alias la='eza --icons=auto -a --color=always --group-directories-first'
 
 #fix obvious typo's
 alias cd..='cd ..'
