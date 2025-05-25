@@ -1,0 +1,11 @@
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 12
+
+theme = catppuccin-mocha
+
+shell-integration = zsh
+shell-integration-features = no-title
+
+background-opacity = 0.85
+
+confirm-close-surface = false
