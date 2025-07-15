@@ -160,7 +160,7 @@ vim.lsp.enable({
   "lua_ls",
   "pyright",
   "rust_analyzer",
-  "volar",
+  "vue_ls",
   "bashls",
   "gopls",
   "marksman",
