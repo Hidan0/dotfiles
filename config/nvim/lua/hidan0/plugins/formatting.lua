@@ -22,6 +22,7 @@ return {
         ocaml = { "ocamlformat" },
         c = { "clang-format" },
         cpp = { "clang-format" },
+        typst = { "prettypst" },
       },
       format_on_save = {
         lsp_fallback = true,

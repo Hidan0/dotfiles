@@ -54,6 +54,7 @@ return {
           "eslint_d", -- js linter
           "clang-format",
           "codelldb", -- c/c++ debugger
+          "prettypst", -- typst formatter
         },
       }),
       -- auto-install configured servers (with lspconfig)
