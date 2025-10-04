@@ -10,7 +10,7 @@ return {
                 },
             })
 
-            vim.keymap.set("n", "<leader>e", ":Oil<CR>")
+            vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open Oil", silent = true })
         end,
     },
 }

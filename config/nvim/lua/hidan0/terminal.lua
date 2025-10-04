@@ -49,7 +49,7 @@ local toggle_terminal = function()
 end
 
 -- Terminal Keymaps
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
-vim.keymap.set("n", "<space>tt", function()
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Go to normal mode in terminal" })
+vim.keymap.set("n", "<leader>tt", function()
     toggle_terminal()
-end)
+end, { desc = "Toggle Terminal" })

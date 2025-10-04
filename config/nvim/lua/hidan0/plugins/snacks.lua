@@ -330,6 +330,10 @@ return {
                     else
                         vim.print = _G.dd
                     end
+
+                    -- TOGGLE OPTIONS
+                    Snacks.toggle.option("spell", { name = "Toggle spelling" }):map("<leader>ts")
+                    Snacks.toggle.option("wrap", { name = "Toggle wrapline" }):map("<leader>tl")
                 end,
             })
         end,
