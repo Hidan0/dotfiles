@@ -3,6 +3,45 @@ local gtd_path = org_path .. "gtd/"
 
 return {
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+        ft = { "markdown", "quarto" },
+        ---@module 'render-markdown'
+        config = function()
+            require("render-markdown").setup({
+                render_modes = true,
+                completions = { lsp = { enabled = true } },
+            })
+        end,
+    },
+    -- NEORG
+    {
+        "nvim-neorg/neorg",
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        -- version = "*", -- Pin Neorg to the latest stable release
+        commit = "4da2159",
+        config = function()
+            require("neorg").setup({
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.concealer"] = {},
+                    ["core.dirman"] = {
+                        config = {
+                            workspaces = {
+                                notes = "~/notes/neorg/",
+                            },
+                            default_workspace = "notes",
+                        },
+                    },
+                },
+            })
+
+            vim.wo.foldlevel = 99
+            vim.wo.conceallevel = 2
+        end,
+    },
+    -- ORG
+    {
         "nvim-orgmode/orgmode",
         event = "VeryLazy",
         ft = { "org" },
@@ -102,6 +141,8 @@ return {
                 org_priority_highest = "A",
                 org_priority_lowest = "D",
                 org_priority_default = "C",
+
+                org_startup_indented = true,
 
                 ui = {
                     folds = {

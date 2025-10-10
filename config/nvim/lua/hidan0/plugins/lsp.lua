@@ -23,7 +23,55 @@ return {
             },
         },
         config = function()
-            vim.lsp.enable("lua_ls")
+            -- Rust
+            vim.lsp.config("rust_analyzer", {
+                settings = {
+                    ["rust-analyzer"] = {
+                        checkOnSave = true,
+                        check = {
+                            command = "clippy",
+                        },
+                        inlayHints = {
+                            bindingModeHints = {
+                                enable = false,
+                            },
+                            chainingHints = {
+                                enable = true,
+                            },
+                            closingBraceHints = {
+                                enable = true,
+                                minLines = 25,
+                            },
+                            closureReturnTypeHints = {
+                                enable = "never",
+                            },
+                            lifetimeElisionHints = {
+                                enable = "never",
+                                useParameterNames = false,
+                            },
+                            maxLength = 25,
+                            parameterHints = {
+                                enable = true,
+                            },
+                            reborrowHints = {
+                                enable = "never",
+                            },
+                            renderColons = true,
+                            typeHints = {
+                                enable = true,
+                                hideClosureInitialization = false,
+                                hideNamedConstructor = false,
+                            },
+                        },
+                    },
+                },
+            })
+
+            -- Enable language servers
+            vim.lsp.enable({
+                "lua_ls",
+                "rust_analyzer",
+            })
         end,
     },
     {
@@ -33,5 +81,9 @@ return {
         config = function()
             require("inlay-hints").setup()
         end,
+    },
+    {
+        "vxpm/ferris.nvim",
+        opts = {},
     },
 }

@@ -23,14 +23,18 @@ return {
                     "rust",
                     "go",
                     "c",
-                    "norg",
-                    "norg_meta",
+                    "latex",
+                    -- "norg",
+                    -- "norg_meta",
                 },
                 sync_install = false,
                 auto_install = false,
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = true,
+                },
+                indent = {
+                    enable = false,
                 },
             })
         end,
