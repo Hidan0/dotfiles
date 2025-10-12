@@ -28,7 +28,7 @@ return {
                 },
             },
             explorer = { enabled = false },
-            image = { enabled = true },
+            image = { enabled = true, math = { enabled = false } },
             indent = { enabled = true },
             input = {
                 enabled = true,

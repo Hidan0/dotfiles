@@ -94,10 +94,18 @@ return {
                 },
             })
 
+            -- typst
+            vim.lsp.config("tinymist", {
+                settings = {
+                    formatterMode = "typstyle",
+                },
+            })
+
             -- Enable language servers
             vim.lsp.enable({
                 "lua_ls",
                 "rust_analyzer",
+                "tinymist",
             })
         end,
     },

@@ -24,6 +24,7 @@ return {
                     "go",
                     "c",
                     "latex",
+                    "typst",
                     -- "norg",
                     -- "norg_meta",
                 },
