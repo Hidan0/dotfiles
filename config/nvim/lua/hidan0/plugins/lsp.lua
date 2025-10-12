@@ -1,3 +1,14 @@
+-- Enable Inlay Hints
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(_)
+        vim.lsp.inlay_hint.enable(true)
+
+        vim.keymap.set("n", "<leader>ti", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end, { desc = "Toggle LSP inlay hints" })
+    end,
+})
+
 return {
     {
         "mason-org/mason.nvim",
@@ -11,7 +22,6 @@ return {
             "saghen/blink.cmp",
             {
                 "folke/lazydev.nvim",
-                enabled = true,
                 ft = "lua", -- only load on lua files
                 opts = {
                     library = {
@@ -23,6 +33,23 @@ return {
             },
         },
         config = function()
+            -- Lua
+            vim.lsp.config("lua_ls", {
+                settings = {
+                    Lua = {
+                        hint = {
+                            enable = true,
+                            arrayIndex = "Enable",
+                            await = true,
+                            paramName = "All",
+                            paramType = true,
+                            semicolon = "Disable",
+                            setType = true,
+                        },
+                    },
+                },
+            })
+
             -- Rust
             vim.lsp.config("rust_analyzer", {
                 settings = {
@@ -72,14 +99,6 @@ return {
                 "lua_ls",
                 "rust_analyzer",
             })
-        end,
-    },
-    {
-        "MysticalDevil/inlay-hints.nvim",
-        event = "LspAttach",
-        dependencies = { "neovim/nvim-lspconfig" },
-        config = function()
-            require("inlay-hints").setup()
         end,
     },
     {
