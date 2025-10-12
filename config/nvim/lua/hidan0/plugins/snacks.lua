@@ -28,7 +28,7 @@ return {
                 },
             },
             explorer = { enabled = false },
-            image = { enabled = false },
+            image = { enabled = true },
             indent = { enabled = true },
             input = {
                 enabled = true,
