@@ -309,6 +309,13 @@ return {
                 end,
                 desc = "Dismiss All Notifications",
             },
+            {
+                "<leader>sn",
+                function()
+                    Snacks.picker.notifications()
+                end,
+                desc = "Notification History",
+            },
         },
         init = function()
             vim.api.nvim_create_autocmd("User", {

@@ -9,6 +9,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- Remap rename
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+
 return {
     {
         "mason-org/mason.nvim",
@@ -106,6 +109,7 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "tinymist",
+                "marksman",
             })
         end,
     },

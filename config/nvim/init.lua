@@ -11,3 +11,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 require("hidan0.terminal")
+require("hidan0.notes")
