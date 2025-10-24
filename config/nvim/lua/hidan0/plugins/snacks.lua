@@ -28,7 +28,11 @@ return {
                 },
             },
             explorer = { enabled = false },
-            image = { enabled = true, math = { enabled = false } },
+            image = {
+                enabled = true,
+                math = { enabled = true },
+                img_dirs = { "assets/imgs" },
+            },
             indent = { enabled = true },
             input = {
                 enabled = true,
