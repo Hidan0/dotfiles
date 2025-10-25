@@ -4,6 +4,8 @@ local opts = {
     inbox_dir = "0_Inbox",
 }
 
+local Snacks = require("snacks")
+
 local function uuid()
     return vim.fn.system("uuidgen"):gsub("%s+", "")
 end
@@ -76,6 +78,7 @@ tags: []
 ---
 
 # %s
+
 ]],
                 uuid(),
                 date,
@@ -94,6 +97,58 @@ tags: []
     end)
 end
 
+-- split string `s` at first occurrence of `c`
+local function split_at(s, c)
+    local pos = string.find(s, c)
+
+    if pos == nil then
+        return nil, nil
+    end
+
+    local left = string.sub(s, 0, pos - 1)
+    local right = string.sub(s, pos + 1)
+
+    return left, right
+end
+
+local function find_todos()
+    local query = "\\- \\[ \\]"
+    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", query, opts.base_dir }
+
+    local res = vim.fn.systemlist(cmd)
+
+    if vim.v.shell_error ~= 0 then
+        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+        return
+    end
+
+    local items = {}
+    for i, raw in ipairs(res) do
+        -- assume no errors
+        local file, rest = split_at(raw, ":")
+
+        local row, rest = split_at(rest, ":")
+
+        local col, rest = split_at(rest, ":")
+
+        local text = string.gsub(rest, ":- [ ]", "")
+
+        table.insert(items, {
+            idx = i,
+            score = i,
+            pos = { tonumber(row), tonumber(col) },
+            file = file,
+            text = text,
+        })
+    end
+
+    return Snacks.picker({
+        items = items,
+    })
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open daily note" })
 vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the inbox" })
+
+vim.keymap.set("n", "<leader>nst", find_todos, { desc = "Find all tasks" })
