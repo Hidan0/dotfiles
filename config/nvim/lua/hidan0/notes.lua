@@ -102,16 +102,49 @@ local function split_at(s, c)
     local pos = string.find(s, c)
 
     if pos == nil then
-        return nil, nil
+        return nil
     end
 
     local left = string.sub(s, 0, pos - 1)
     local right = string.sub(s, pos + 1)
 
-    return left, right
+    return { left = left, right = right }
 end
 
-local function find_todos()
+local function process_ripgrep_line(line)
+    -- file:row:col:grepped_string
+
+    local split = split_at(line, ":")
+    if not split then
+        vim.notify("Failed to parse ripgrep output [file]:\n" .. line, vim.log.levels.ERROR)
+        return nil
+    end
+
+    local file = split.left
+
+    split = split_at(split.right, ":")
+    if not split then
+        vim.notify("Failed to parse ripgrep output [row]:\n" .. line, vim.log.levels.ERROR)
+        return nil
+    end
+
+    local row = tonumber(split.left)
+
+    split = split_at(split.right, ":")
+    if not split then
+        vim.notify("Failed to parse ripgrep output [col]:\n" .. line, vim.log.levels.ERROR)
+        return nil
+    end
+
+    local col = tonumber(split.left)
+
+    -- clean text
+    local text = string.gsub(split.right, "%- %[ %]%s+", "")
+
+    return { file = file, row = row, col = col, text = text }
+end
+
+local function find_unchecked_todos()
     local query = "\\- \\[ \\]"
     local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", query, opts.base_dir }
 
@@ -123,27 +156,27 @@ local function find_todos()
     end
 
     local items = {}
-    for i, raw in ipairs(res) do
-        -- assume no errors
-        local file, rest = split_at(raw, ":")
-
-        local row, rest = split_at(rest, ":")
-
-        local col, rest = split_at(rest, ":")
-
-        local text = string.gsub(rest, ":- [ ]", "")
-
-        table.insert(items, {
-            idx = i,
-            score = i,
-            pos = { tonumber(row), tonumber(col) },
-            file = file,
-            text = text,
-        })
+    for i, line in ipairs(res) do
+        local item = process_ripgrep_line(line)
+        if item ~= nil then
+            table.insert(items, {
+                idx = i,
+                score = i,
+                pos = { item.row, item.col },
+                file = item.file,
+                text = item.text,
+            })
+        end
     end
 
     return Snacks.picker({
+        title = "All Tasks",
         items = items,
+        format = function(item, _)
+            return {
+                { item.text },
+            }
+        end,
     })
 end
 
@@ -151,4 +184,4 @@ end
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open daily note" })
 vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the inbox" })
 
-vim.keymap.set("n", "<leader>nst", find_todos, { desc = "Find all tasks" })
+vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
