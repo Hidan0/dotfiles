@@ -10,9 +10,24 @@ local function uuid()
     return vim.fn.system("uuidgen"):gsub("%s+", "")
 end
 
---- Creates a daily note if there is not one for the current day and returns the filepath to that note
-local function daily_note()
-    local date = os.date("*t")
+local Daily = {
+    TODAY = "today",
+    TOMORROW = "tomorrow",
+    YESTERDAY = "yesterday",
+}
+local Daily_offset = (24 * 60 * 60)
+
+local function daily_note(when)
+    local when = when or Daily.TODAY
+
+    local time = os.time()
+    if when == Daily.TOMORROW then
+        time = time + Daily_offset
+    elseif when == Daily.YESTERDAY then
+        time = time - Daily_offset
+    end
+
+    local date = os.date("*t", time)
     local year = date.year
     local month = date.month
     local day = string.format("%04d-%02d-%02d", date.year, date.month, date.day)
@@ -32,7 +47,7 @@ tags:
   - daily-note
 ---
 
-# %s @ %02d:%02d
+# %s
 
 ## Tasks
 
@@ -53,8 +68,8 @@ tags:
     return filepath
 end
 
-local function open_daily_note()
-    local filepath = daily_note()
+local function open_daily_note(when)
+    local filepath = daily_note(when)
     vim.cmd("edit " .. vim.fn.fnameescape(filepath))
 end
 
@@ -281,7 +296,14 @@ local function check_todo()
 end
 
 -- KEYMAPS
-vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open daily note" })
+vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
+vim.keymap.set("n", "<leader>nT", function()
+    open_daily_note(Daily.TOMORROW)
+end, { desc = "Create\\Open tomorrow daily note" })
+vim.keymap.set("n", "<leader>ny", function()
+    open_daily_note(Daily.YESTERDAY)
+end, { desc = "Create\\Open yesterday daily note" })
+
 vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the inbox" })
 
 vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
