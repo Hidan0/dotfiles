@@ -44,7 +44,7 @@ return {
                 end,
 
                 prompt_for_file_name = false,
-                file_name = "%y%m%d_%H%M%S",
+                file_name = "%Y%m%d_%H%M%S",
             },
             filetypes = {
                 markdown = {
