@@ -30,9 +30,6 @@ vim.opt.colorcolumn = "88"
 -- faster completion
 vim.opt.updatetime = 300
 
--- use system clipboard
-vim.opt.clipboard = "unnamedplus"
-
 -- split window
 vim.opt.splitright = true
 vim.opt.splitbelow = true

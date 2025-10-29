@@ -16,5 +16,8 @@ vim.keymap.set("n", "<leader>bk", ":bd<CR>", { desc = "Unload buffer", silent = 
 vim.keymap.set("n", "<leader>bK", ":bd!<CR>", { desc = "Force unload buffer", silent = true })
 
 -- cut, delete & paste
-vim.keymap.set("n", "x", '"_x') -- doesn't copy single char
-vim.keymap.set("x", "<leader>p", [["_dP]]) -- paste and delete into void
+vim.keymap.set("n", "x", '"_x', { desc = "Delete char without yanking" })
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy into system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>Y", [["+y]], { desc = "Copy entire line into system clipboard" })
+vim.keymap.set("v", "<leader>d", [["_d]], { desc = "Delete section without yanking" })
