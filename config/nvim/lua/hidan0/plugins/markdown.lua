@@ -63,4 +63,8 @@ return {
             { "<leader>nip", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
         },
     },
+    {
+        "bullets-vim/bullets.vim",
+        event = { "BufReadPre" .. " *.md", "BufNewFile" .. " *.md" },
+    },
 }
