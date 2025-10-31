@@ -1,3 +1,13 @@
+-- Fix for nvim overwriting tab opts
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.opt.shiftwidth = 2
+        vim.opt.tabstop = 2
+        vim.opt.softtabstop = 2
+    end,
+})
+
 local opts = {
     base_dir = vim.fn.expand("~/notes/second_brain"),
     daily_dir = "1_Daily",
@@ -295,6 +305,98 @@ local function check_todo()
     end
 end
 
+local function cancel_todo()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row = cursor[1] - 1 -- treesitter is 0 based
+
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    local parser = require("nvim-treesitter.parsers").get_parser(bufnr, "markdown")
+    if not parser then
+        vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
+        return
+    end
+    local tree = parser:parse()[1]
+
+    local query = [[
+(list_item
+	(_)
+	(task_list_marker_unchecked)
+	) @li]]
+    local ok, q = pcall(vim.treesitter.query.parse, "markdown", query)
+    if not ok then
+        vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+        return
+    end
+
+    for _, node in q:iter_captures(tree:root(), bufnr) do
+        local s_row, _, e_row, _ = node:range()
+
+        if row >= s_row and row < e_row then
+            local lines = vim.api.nvim_buf_get_lines(bufnr, s_row, e_row, false)
+
+            lines[1] = lines[1]:gsub("%[%s%]%s", "[x] ~~") -- check the task, add the chars for strike through
+
+            if lines[#lines] == "" then
+                lines[#lines - 1] = lines[#lines - 1] .. string.format("~~ `cancelled: %s`", os.date("%Y-%m-%d %H:%M"))
+            else
+                lines[#lines] = lines[#lines] .. string.format("~~ `cancelled: %s`", os.date("%Y-%m-%d %H:%M"))
+            end
+
+            vim.api.nvim_buf_set_lines(bufnr, s_row, e_row, false, {})
+            -- Adjust cursor position if it's beyond the buffer
+            local total_lines = vim.api.nvim_buf_line_count(bufnr)
+            if cursor[1] > total_lines then
+                vim.api.nvim_win_set_cursor(0, { total_lines, 0 })
+            end
+            -- Create Daily note if doesn't exists
+            local daily_fp = daily_note() -- gets daily note path
+
+            -- Check if there is a buffer with the daily note opened
+            local daily_bufnr = nil
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                if vim.api.nvim_buf_is_loaded(buf) then
+                    local buf_name = vim.api.nvim_buf_get_name(buf)
+                    if buf_name == daily_fp then
+                        daily_bufnr = buf
+                        break
+                    end
+                end
+            end
+
+            if not daily_bufnr then
+                vim.cmd("edit " .. vim.fn.fnameescape(daily_fp))
+                daily_bufnr = vim.api.nvim_get_current_buf()
+            else
+                local daily_win = vim.fn.bufwinid(daily_bufnr)
+                if daily_win ~= -1 then
+                    vim.api.nvim_set_current_win(daily_win)
+                else
+                    vim.cmd("buffer " .. daily_bufnr)
+                end
+            end
+
+            local daily_lines = vim.api.nvim_buf_get_lines(daily_bufnr, 0, -1, false)
+            for _, line in ipairs(lines) do
+                table.insert(daily_lines, line)
+            end
+            vim.api.nvim_buf_set_lines(daily_bufnr, 0, -1, false, daily_lines)
+
+            if bufnr ~= daily_bufnr then
+                vim.api.nvim_buf_call(daily_bufnr, function()
+                    vim.cmd("write")
+                end)
+            end
+
+            vim.api.nvim_buf_call(bufnr, function()
+                vim.cmd("write")
+            end)
+
+            return
+        end
+    end
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
 vim.keymap.set("n", "<leader>nT", function()
@@ -312,6 +414,12 @@ vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all task
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     pattern = opts.base_dir .. "/*.md",
     callback = function()
-        vim.keymap.set("n", "<localleader>td", check_todo, { buffer = true })
+        vim.keymap.set("n", "<localleader>td", check_todo, { desc = "Set task as completed", buffer = true })
+    end,
+})
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    pattern = opts.base_dir .. "/*.md",
+    callback = function()
+        vim.keymap.set("n", "<localleader>tc", cancel_todo, { desc = "Set task as cancelled", buffer = true })
     end,
 })

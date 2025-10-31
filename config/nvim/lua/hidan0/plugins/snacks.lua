@@ -30,7 +30,12 @@ return {
             explorer = { enabled = false },
             image = {
                 enabled = true,
-                math = { enabled = true },
+                math = {
+                    enabled = true,
+                    latex = {
+                        font_size = "normalsize",
+                    },
+                },
                 img_dirs = { "assets/imgs" },
             },
             indent = { enabled = true },

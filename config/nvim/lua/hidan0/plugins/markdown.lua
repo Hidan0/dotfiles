@@ -19,7 +19,7 @@ return {
                     enabled = false, -- SNACS
                 },
                 indent = {
-                    enabled = true,
+                    enabled = false,
                 },
             })
         end,
