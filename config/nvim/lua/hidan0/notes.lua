@@ -177,7 +177,7 @@ end
 
 local function find_unchecked_todos()
     local query = "\\- \\[ \\]"
-    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", query, opts.base_dir }
+    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", "--glob", "!Spesa.*", query, opts.base_dir }
 
     local res = vim.fn.systemlist(cmd)
 
