@@ -59,7 +59,15 @@ return {
 
             vim.keymap.set("n", "zK", ufo.peekFoldedLinesUnderCursor, { desc = "Peek Folded Lines" })
 
-            ufo.setup()
+            ufo.setup({
+                provider_selector = function(_, filetype, _)
+                    if filetype == "markdown" then
+                        return { "treesitter", "indent" }
+                    end
+
+                    return { "lsp", "indent" }
+                end,
+            })
         end,
     },
     {
