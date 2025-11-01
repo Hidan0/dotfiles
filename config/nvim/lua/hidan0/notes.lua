@@ -216,6 +216,7 @@ local function process_task(process_lines)
     local row = cursor[1] - 1 -- treesitter is 0 based
 
     local bufnr = vim.api.nvim_get_current_buf()
+    local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t:r")
 
     local parser = require("nvim-treesitter.parsers").get_parser(bufnr, "markdown")
     if not parser then
@@ -241,7 +242,15 @@ local function process_task(process_lines)
         if row >= s_row and row < e_row then
             local lines = vim.api.nvim_buf_get_lines(bufnr, s_row, e_row, false)
 
-            process_lines(lines)
+            -- Create Daily note if doesn't exists
+            local daily_fp = daily_note() -- gets daily note path
+            local daily_name = vim.fn.fnamemodify(daily_fp, ":t:r")
+
+            if file_name ~= daily_name then
+                process_lines(lines, file_name)
+            else
+                process_lines(lines)
+            end
 
             vim.api.nvim_buf_set_lines(bufnr, s_row, e_row, false, {})
             -- Adjust cursor position if it's beyond the buffer
@@ -249,8 +258,6 @@ local function process_task(process_lines)
             if cursor[1] > total_lines then
                 vim.api.nvim_win_set_cursor(0, { total_lines, 0 })
             end
-            -- Create Daily note if doesn't exists
-            local daily_fp = daily_note() -- gets daily note path
 
             -- Check if there is a buffer with the daily note opened
             local daily_bufnr = nil
@@ -297,23 +304,33 @@ local function process_task(process_lines)
     end
 end
 
-local function complete_task(lines)
+local function complete_task(lines, backlink)
     lines[1] = lines[1]:gsub("%[%s%]", "[x]") -- check the todo
 
+    local metadata = string.format(" `done: %s`", os.date("%Y-%m-%d %H:%M"))
+    if backlink then
+        metadata = metadata .. string.format(" [[%s]]", backlink)
+    end
+
     if lines[#lines] == "" then
-        lines[#lines - 1] = lines[#lines - 1] .. string.format(" `done: %s`", os.date("%Y-%m-%d %H:%M"))
+        lines[#lines - 1] = lines[#lines - 1] .. metadata
     else
-        lines[#lines] = lines[#lines] .. string.format(" `done: %s`", os.date("%Y-%m-%d %H:%M"))
+        lines[#lines] = lines[#lines] .. metadata
     end
 end
 
-local function cancel_task(lines)
+local function cancel_task(lines, backlink)
     lines[1] = lines[1]:gsub("%[%s%]%s", "[x] ~~") -- check the task, add the chars for strike through
 
+    local metadata = string.format("~~ `cancelled: %s`", os.date("%Y-%m-%d %H:%M"))
+    if backlink then
+        metadata = metadata .. string.format(" [[%s]]", backlink)
+    end
+
     if lines[#lines] == "" then
-        lines[#lines - 1] = lines[#lines - 1] .. string.format("~~ `cancelled: %s`", os.date("%Y-%m-%d %H:%M"))
+        lines[#lines - 1] = lines[#lines - 1] .. metadata
     else
-        lines[#lines] = lines[#lines] .. string.format("~~ `cancelled: %s`", os.date("%Y-%m-%d %H:%M"))
+        lines[#lines] = lines[#lines] .. metadata
     end
 end
 
