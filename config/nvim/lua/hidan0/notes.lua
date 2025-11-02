@@ -13,6 +13,11 @@ local opts = {
     daily_dir = "1_Daily",
     inbox_dir = "0_Inbox",
 }
+local UNCHECKED_TASK_QUERY = [[
+(list_item
+	(_)
+	(task_list_marker_unchecked)
+	) @li]]
 
 local Snacks = require("snacks")
 
@@ -225,12 +230,7 @@ local function process_task(process_lines)
     end
     local tree = parser:parse()[1]
 
-    local query = [[
-(list_item
-	(_)
-	(task_list_marker_unchecked)
-	) @li]]
-    local ok, q = pcall(vim.treesitter.query.parse, "markdown", query)
+    local ok, q = pcall(vim.treesitter.query.parse, "markdown", UNCHECKED_TASK_QUERY)
     if not ok then
         vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
         return
@@ -395,6 +395,116 @@ local function headlines()
     })
 end
 
+local function move_daily_tasks_to_current_day()
+    local query = "\\- \\[ \\]"
+    local cmd = { "rg", "-l", "-tmd", query, opts.base_dir .. "/" .. opts.daily_dir }
+
+    local res = vim.fn.systemlist(cmd)
+
+    if vim.v.shell_error ~= 0 then
+        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+        return
+    end
+
+    if not res then
+        vim.notify("No unchecked tasks found", vim.log.levels.INFO)
+        return
+    end
+
+    local tasks = {}
+    for _, filepath in ipairs(res) do
+        local bufrn = vim.fn.bufadd(filepath)
+        vim.fn.bufload(bufrn)
+
+        local parser = require("nvim-treesitter.parsers").get_parser(bufrn, "markdown")
+        if not parser then
+            vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
+            return
+        end
+        local tree = parser:parse()[1]
+
+        local ok, q = pcall(vim.treesitter.query.parse, "markdown", UNCHECKED_TASK_QUERY)
+        if not ok then
+            vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+            return
+        end
+
+        local local_tasks = {}
+        for _, node in q:iter_captures(tree:root(), bufrn) do
+            local s_row, _, e_row, _ = node:range()
+
+            local lines = vim.api.nvim_buf_get_lines(bufrn, s_row, e_row, false)
+            table.insert(local_tasks, {
+                lines = lines,
+                start_row = s_row,
+                end_row = e_row,
+            })
+        end
+
+        -- remove lines bottom up
+        table.sort(local_tasks, function(a, b)
+            return a.start_row > b.start_row
+        end)
+
+        for _, task in ipairs(local_tasks) do
+            vim.api.nvim_buf_set_lines(bufrn, task.start_row, task.end_row, false, {})
+
+            for _, task_line in ipairs(task.lines) do
+                if task_line ~= "" then
+                    table.insert(tasks, task_line)
+                end
+            end
+        end
+
+        vim.api.nvim_buf_call(bufrn, function()
+            vim.cmd("write")
+        end)
+
+        vim.api.nvim_buf_delete(bufrn, { unload = true })
+    end
+
+    local daily_fp = daily_note()
+
+    local daily_bufrn = vim.fn.bufadd(daily_fp)
+    vim.fn.bufload(daily_bufrn)
+
+    local parser = require("nvim-treesitter.parsers").get_parser(daily_bufrn, "markdown")
+    if not parser then
+        vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
+        return
+    end
+
+    local tree = parser:parse()[1]
+
+    local ok, q = pcall(
+        vim.treesitter.query.parse,
+        "markdown",
+        [[
+(atx_heading
+	(atx_h2_marker)
+	(inline) @title
+	(#eq? @title "Tasks")
+	)
+	]]
+    )
+
+    if not ok then
+        vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+        return
+    end
+
+    for _, node in q:iter_captures(tree:root(), daily_bufrn) do
+        local _, _, e_row, _ = node:range()
+
+        vim.api.nvim_buf_set_lines(daily_bufrn, e_row, e_row, false, tasks)
+        vim.api.nvim_buf_call(daily_bufrn, function()
+            vim.cmd("write")
+        end)
+
+        return
+    end
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
 vim.keymap.set("n", "<leader>nT", function()
@@ -432,3 +542,8 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         end, { desc = "Set task as cancelled", buffer = true })
     end,
 })
+
+-- COMMANDS
+vim.api.nvim_create_user_command("RefileAllTasksToDailyNote", function(_)
+    move_daily_tasks_to_current_day()
+end, { nargs = 0, desc = "Moves all the tasks in the daily dir to the current daily note" })
