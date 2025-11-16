@@ -34,6 +34,10 @@ return {
                     return not check_for_notes_wsp()
                 end,
 
+                drag_and_drop = {
+                    enabled = false, -- prevents intercepting `vim.paste()`
+                },
+
                 -- `<file_name>-img` as dir
                 dir_path = function()
                     if check_for_notes_wsp() then
