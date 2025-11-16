@@ -12,6 +12,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- Remap rename
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
+
 return {
     {
         "mason-org/mason.nvim",

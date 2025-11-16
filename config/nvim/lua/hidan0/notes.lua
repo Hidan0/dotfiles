@@ -394,8 +394,28 @@ local function headlines()
 end
 
 local function move_daily_tasks_to_current_day()
+    open_daily_note()
+    local daily_bufrn = vim.api.nvim_get_current_buf() -- daily
+
+    local tasks_h_rgx = "^(#+)%s+Tasks"
+
+    local tasks_section_row = nil
+    for row, line in ipairs(vim.api.nvim_buf_get_lines(daily_bufrn, 0, -1, false)) do
+        if string.match(line, tasks_h_rgx) then
+            tasks_section_row = row + 1
+            break
+        end
+    end
+
+    if not tasks_section_row then
+        vim.notify("Can not find `Tasks` section in current note", vim.log.levels.ERROR)
+        return
+    end
+
+    -- Search tasks
     local query = "\\- \\[ \\]"
-    local cmd = { "rg", "-l", "-tmd", query, DAILY_DIR }
+    local filterout_daily = "!" .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(daily_bufrn), ":t")
+    local cmd = { "rg", "-l", "-tmd", "-g", filterout_daily, query, DAILY_DIR }
 
     local res = vim.fn.systemlist(cmd)
 
@@ -409,10 +429,9 @@ local function move_daily_tasks_to_current_day()
         return
     end
 
-    local tasks = {}
     for _, filepath in ipairs(res) do
         local bufrn = vim.fn.bufadd(filepath)
-        vim.fn.bufload(bufrn)
+        vim.fn.bufload(filepath)
 
         local parser = require("nvim-treesitter.parsers").get_parser(bufrn, "markdown")
         if not parser then
@@ -439,6 +458,14 @@ local function move_daily_tasks_to_current_day()
             })
         end
 
+        for _, task in ipairs(local_tasks) do
+            for _, task_line in ipairs(task.lines) do
+                if task_line ~= "" then
+                    vim.api.nvim_buf_set_lines(daily_bufrn, tasks_section_row, tasks_section_row, false, task.lines)
+                end
+            end
+        end
+
         -- remove lines bottom up
         table.sort(local_tasks, function(a, b)
             return a.start_row > b.start_row
@@ -446,12 +473,6 @@ local function move_daily_tasks_to_current_day()
 
         for _, task in ipairs(local_tasks) do
             vim.api.nvim_buf_set_lines(bufrn, task.start_row, task.end_row, false, {})
-
-            for _, task_line in ipairs(task.lines) do
-                if task_line ~= "" then
-                    table.insert(tasks, task_line)
-                end
-            end
         end
 
         vim.api.nvim_buf_call(bufrn, function()
@@ -461,46 +482,9 @@ local function move_daily_tasks_to_current_day()
         vim.api.nvim_buf_delete(bufrn, { unload = true })
     end
 
-    local daily_fp = daily_note()
-
-    local daily_bufrn = vim.fn.bufadd(daily_fp)
-    vim.fn.bufload(daily_bufrn)
-
-    local parser = require("nvim-treesitter.parsers").get_parser(daily_bufrn, "markdown")
-    if not parser then
-        vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
-        return
-    end
-
-    local tree = parser:parse()[1]
-
-    local ok, q = pcall(
-        vim.treesitter.query.parse,
-        "markdown",
-        [[
-(atx_heading
-	(atx_h2_marker)
-	(inline) @title
-	(#eq? @title "Tasks")
-	)
-	]]
-    )
-
-    if not ok then
-        vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
-        return
-    end
-
-    for _, node in q:iter_captures(tree:root(), daily_bufrn) do
-        local _, _, e_row, _ = node:range()
-
-        vim.api.nvim_buf_set_lines(daily_bufrn, e_row, e_row, false, tasks)
-        vim.api.nvim_buf_call(daily_bufrn, function()
-            vim.cmd("write")
-        end)
-
-        return
-    end
+    vim.api.nvim_buf_call(daily_bufrn, function()
+        vim.cmd("write")
+    end)
 end
 
 -- KEYMAPS
