@@ -487,6 +487,37 @@ local function move_daily_tasks_to_current_day()
     end)
 end
 
+local function index_notes()
+    local query = "^type: index"
+    local cmd = { "rg", "-l", "-tmd", query, BASE_DIR }
+
+    local res = vim.fn.systemlist(cmd)
+
+    if vim.v.shell_error ~= 0 then
+        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+        return
+    end
+
+    _G.dd(res)
+
+    local items = {}
+    for idx, file in ipairs(res) do
+        table.insert(items, {
+            idx = idx,
+            file = file,
+            text = vim.fn.fnamemodify(file, ":t:r"),
+        })
+    end
+
+    return Snacks.picker({
+        title = "Index Notes",
+        items = items,
+        format = function(item, _)
+            return { { item.text } }
+        end,
+    })
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
 vim.keymap.set("n", "<leader>nT", function()
@@ -499,6 +530,7 @@ end, { desc = "Create\\Open yesterday daily note" })
 vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the inbox" })
 
 vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
+vim.keymap.set("n", "<leader>nsi", index_notes, { desc = "Find index notes" })
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     pattern = "*.md",
