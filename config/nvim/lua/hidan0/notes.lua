@@ -8,11 +8,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-local opts = {
-    base_dir = vim.fn.expand("~/notes/second_brain"),
-    daily_dir = "1_Daily",
-    inbox_dir = "0_Inbox",
-}
+local BASE_DIR = vim.fn.expand("~/notes/second_brain")
+local INBOX_DIR = BASE_DIR .. "/0_Inbox"
+local DAILY_DIR = BASE_DIR .. "/1_Daily"
+
 local UNCHECKED_TASK_QUERY = [[
 (list_item
 	(_)
@@ -33,7 +32,7 @@ local Daily = {
 local Daily_offset = (24 * 60 * 60)
 
 local function daily_note(when)
-    local when = when or Daily.TODAY
+    when = when or Daily.TODAY
 
     local time = os.time()
     if when == Daily.TOMORROW then
@@ -47,7 +46,7 @@ local function daily_note(when)
     local month = date.month
     local day = string.format("%04d-%02d-%02d", date.year, date.month, date.day)
 
-    local dir = string.format("%s/%s/%s/%s", opts.base_dir, opts.daily_dir, year, month)
+    local dir = string.format("%s/%s/%s", DAILY_DIR, year, month)
     local filepath = string.format("%s/%s.md", dir, day)
 
     if vim.fn.isdirectory(dir) == 0 then
@@ -91,9 +90,8 @@ end
 --- Creates a new note in the inbox directory
 local function new_note()
     local date = os.date("%Y-%m-%d")
-    local dir = string.format("%s/%s", opts.base_dir, opts.inbox_dir)
 
-    if not vim.fn.isdirectory(dir) then
+    if not vim.fn.isdirectory(INBOX_DIR) then
         vim.notify("Notes inbox directory not found", vim.log.levels.WARN)
         return
     end
@@ -103,7 +101,7 @@ local function new_note()
             vim.notify("Cancelled input", vim.log.levels.INFO)
             return
         end
-        local filepath = string.format("%s/%s.md", dir, notename)
+        local filepath = string.format("%s/%s.md", INBOX_DIR, notename)
 
         if vim.fn.filereadable(filepath) then
             local template = string.format(
@@ -182,7 +180,7 @@ end
 
 local function find_unchecked_todos()
     local query = "\\- \\[ \\]"
-    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", "--glob", "!Spesa.*", query, opts.base_dir }
+    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", "--glob", "!Spesa.*", query, BASE_DIR }
 
     local res = vim.fn.systemlist(cmd)
 
@@ -397,7 +395,7 @@ end
 
 local function move_daily_tasks_to_current_day()
     local query = "\\- \\[ \\]"
-    local cmd = { "rg", "-l", "-tmd", query, opts.base_dir .. "/" .. opts.daily_dir }
+    local cmd = { "rg", "-l", "-tmd", query, DAILY_DIR }
 
     local res = vim.fn.systemlist(cmd)
 
@@ -527,7 +525,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 
 -- LOCAL KEYMAPS
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = opts.base_dir .. "/*.md",
+    pattern = BASE_DIR .. "/*.md",
     callback = function()
         vim.keymap.set("n", "<localleader>td", function()
             process_task(complete_task)
@@ -535,7 +533,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     end,
 })
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = opts.base_dir .. "/*.md",
+    pattern = BASE_DIR .. "/*.md",
     callback = function()
         vim.keymap.set("n", "<localleader>tc", function()
             process_task(cancel_task)
