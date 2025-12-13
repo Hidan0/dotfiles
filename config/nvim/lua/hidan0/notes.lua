@@ -496,6 +496,76 @@ local function find_index_notes()
     })
 end
 
+local function escape_regex(text)
+    return text:gsub("([%.%^%$%*%+%-%?%(%)%[%]%{%}%|\\])", "\\%1")
+end
+
+local function display_backlinks()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t:r")
+    fname = escape_regex(fname)
+
+    local query = "\\[\\[" .. fname .. "\\]\\]"
+    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", query, BASE_DIR }
+
+    local res = vim.fn.systemlist(cmd)
+
+    if vim.v.shell_error == 2 then
+        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+        return
+    elseif vim.v.shell_error == 1 then
+        return
+    end
+
+    local ns_id = vim.api.nvim_create_namespace("backlinks")
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+
+    local mentions = {}
+    local dailies = {}
+    local seen = {}
+
+    for _, line in pairs(res) do
+        local item = assert(process_ripgrep_line(line))
+        local mention = vim.fn.fnamemodify(item.file, ":t:r")
+
+        if not seen[mention] then
+            if mention:match("^%d%d%d%d%-%d%d%-%d%d$") then
+                table.insert(dailies, mention)
+            else
+                table.insert(mentions, mention)
+            end
+            seen[mention] = true
+        end
+    end
+
+    local last_line = vim.api.nvim_buf_line_count(bufnr) - 1
+    local virt_lines = {}
+
+    if #mentions > 0 then
+        table.insert(virt_lines, { { "", "Normal" } })
+        table.insert(virt_lines, { { "Linked mentions:", "Comment" } })
+        table.insert(virt_lines, { { "", "Normal" } })
+        for _, mention in ipairs(mentions) do
+            table.insert(virt_lines, { { "[[" .. mention .. "]]", "Comment" } })
+        end
+    end
+
+    if #dailies > 0 then
+        table.insert(virt_lines, { { "", "Normal" } })
+        table.insert(virt_lines, { { "Daily mentions:", "Comment" } })
+        table.insert(virt_lines, { { "", "Normal" } })
+        for _, daily in ipairs(dailies) do
+            table.insert(virt_lines, { { "[[" .. daily .. "]]", "Comment" } })
+        end
+    end
+
+    if #virt_lines > 0 then
+        vim.api.nvim_buf_set_extmark(bufnr, ns_id, last_line, 0, {
+            virt_lines = virt_lines,
+        })
+    end
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
 vim.keymap.set("n", "<leader>nT", function()
@@ -526,6 +596,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         end, { desc = "Set task as completed", buffer = true })
     end,
 })
+
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     pattern = BASE_DIR .. "/*.md",
     callback = function()
@@ -534,6 +605,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         end, { desc = "Set task as cancelled", buffer = true })
     end,
 })
+
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     pattern = "*.md",
     callback = function()
@@ -558,3 +630,13 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 vim.api.nvim_create_user_command("RefileAllTasksToDailyNote", function(_)
     move_daily_tasks_to_current_day()
 end, { nargs = 0, desc = "Moves all the tasks in the daily dir to the current daily note" })
+
+-- QOL FUNCTIONS
+
+-- Display backlinks
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+    pattern = BASE_DIR .. "/*.md",
+    callback = function()
+        display_backlinks()
+    end,
+})
