@@ -13,7 +13,7 @@ vim.opt.expandtab = false
 vim.opt.autoindent = true
 
 -- line wrapping
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 -- search settings
 vim.opt.ignorecase = true
@@ -46,3 +46,6 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.spelllang = "en,it,cjk"
 vim.opt.spellsuggest = "best,9"
 vim.opt.spell = true
+
+-- External editor options
+vim.opt.exrc = true
