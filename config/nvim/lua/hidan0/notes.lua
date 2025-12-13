@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("FileType", {
 local BASE_DIR = vim.fn.expand("~/notes/second_brain")
 local INBOX_DIR = BASE_DIR .. "/0_Inbox"
 local DAILY_DIR = BASE_DIR .. "/1_Daily"
+local TEMPLATE_DIR = BASE_DIR .. "/7_Metadata/templates"
 
 local UNCHECKED_TASK_QUERY = [[
 (list_item
@@ -19,6 +20,13 @@ local UNCHECKED_TASK_QUERY = [[
 	) @li]]
 
 local Snacks = require("snacks")
+
+local function read_all_file(file)
+    local f = assert(io.open(file, "r"))
+    local content = f:read("*a")
+    f:close()
+    return content
+end
 
 local function uuid()
     return vim.fn.system("uuidgen"):gsub("%s+", "")
@@ -54,28 +62,12 @@ local function daily_note(when)
     end
 
     if vim.fn.filereadable(filepath) == 0 then
-        local template = string.format(
-            [[---
-id: %s
-tags:
-  - daily-note
----
-
-# %s
-
-## Tasks
-
-## Completed Tasks
-]],
-            uuid(),
-            day,
-            date.hour,
-            date.min
-        )
+        local template = read_all_file(TEMPLATE_DIR .. "/nvim_daily_note_tp.md")
+        local content = string.format(template, uuid(), day, date.hour, date.min)
 
         -- write the file
-        local file = io.open(filepath, "w")
-        file:write(template)
+        local file = assert(io.open(filepath, "w"))
+        file:write(content)
         file:close()
     end
 
@@ -104,23 +96,11 @@ local function new_note()
         local filepath = string.format("%s/%s.md", INBOX_DIR, notename)
 
         if vim.fn.filereadable(filepath) then
-            local template = string.format(
-                [[---
-id: %s
-created: %s
-tags: []
----
+            local template = read_all_file(TEMPLATE_DIR .. "/nvim_note_tp.md")
+            local content = string.format(template, uuid(), date, notename)
 
-# %s
-
-]],
-                uuid(),
-                date,
-                notename
-            )
-
-            local file = io.open(filepath, "w")
-            file:write(template)
+            local file = assert(io.open(filepath, "w"))
+            file:write(content)
             file:close()
         else
             vim.notify("Failed to create new note", vim.log.levels.WARN)
