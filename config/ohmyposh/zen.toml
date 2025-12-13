@@ -1,5 +1,5 @@
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
-version = 3
+version = 4
 final_space = true
 
 [palette]
@@ -35,7 +35,7 @@ final_space = true
     type = 'path'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       style = 'full'
 
   [[blocks.segments]]
@@ -45,7 +45,7 @@ final_space = true
     type = 'git'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       branch_icon = ''
       commit_icon = '@'
       fetch_status = true
@@ -61,7 +61,7 @@ final_space = true
     type = 'executiontime'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       threshold = 5000
 
 [[blocks]]
