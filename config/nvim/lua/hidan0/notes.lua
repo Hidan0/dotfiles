@@ -554,6 +554,25 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         end, { desc = "Set task as cancelled", buffer = true })
     end,
 })
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    pattern = "*.md",
+    callback = function()
+        vim.keymap.set({ "n", "i" }, "<M-i><M-t>", function()
+            local time = os.date("%H:%M")
+
+            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+            local line = vim.api.nvim_get_current_line()
+
+            -- insert time at cursor position
+            local new_line = line:sub(1, col) .. time .. line:sub(col + 1)
+
+            vim.api.nvim_set_current_line(new_line)
+
+            -- move cursor to end of inserted time
+            vim.api.nvim_win_set_cursor(0, { row, col + #time })
+        end, { desc = "Insert current time", buffer = true })
+    end,
+})
 
 -- COMMANDS
 vim.api.nvim_create_user_command("RefileAllTasksToDailyNote", function(_)
