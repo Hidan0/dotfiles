@@ -277,6 +277,8 @@ local function process_task(process_lines)
                 vim.cmd("write")
             end)
 
+            vim.api.nvim_set_current_buf(bufnr)
+
             return
         end
     end
