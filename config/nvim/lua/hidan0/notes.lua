@@ -540,6 +540,15 @@ local function display_backlinks()
         end
     end
 
+    -- Sort by most recent (ISO 8601 format (YYYY-MM-DD) is lexicographically sortable)
+    table.sort(dailies, function(d1, d2)
+        if d1 > d2 then
+            return true
+        else
+            return false
+        end
+    end)
+
     local last_line = vim.api.nvim_buf_line_count(bufnr) - 1
     local virt_lines = {}
 
