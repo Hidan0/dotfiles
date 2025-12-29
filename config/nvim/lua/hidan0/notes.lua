@@ -262,9 +262,33 @@ local function process_task(process_lines)
             end
 
             local daily_lines = vim.api.nvim_buf_get_lines(daily_bufnr, 0, -1, false)
-            for _, line in ipairs(lines) do
-                table.insert(daily_lines, line)
+
+            -- Find the "## Completed Tasks" heading
+            local insert_position = nil
+            for i, line in ipairs(daily_lines) do
+                if line:match("^##%s+Completed%s+Tasks") then
+                    insert_position = i
+                    -- Skip blank lines under the title
+                    while insert_position < #daily_lines and daily_lines[insert_position + 1]:match("^%s*$") do
+                        insert_position = insert_position + 1
+                    end
+                    break
+                end
             end
+
+            if insert_position then
+                for i = #lines, 1, -1 do
+                    if lines[i]:match("%S") then
+                        table.insert(daily_lines, insert_position + 1, lines[i])
+                    end
+                end
+            else
+                -- Fallback at the end
+                for _, line in ipairs(lines) do
+                    table.insert(daily_lines, line)
+                end
+            end
+
             vim.api.nvim_buf_set_lines(daily_bufnr, 0, -1, false, daily_lines)
 
             if bufnr ~= daily_bufnr then
