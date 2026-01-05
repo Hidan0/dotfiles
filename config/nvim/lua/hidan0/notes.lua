@@ -54,7 +54,7 @@ local function daily_note(when)
     local month = date.month
     local day = string.format("%04d-%02d-%02d", date.year, date.month, date.day)
 
-    local dir = string.format("%s/%s/%s", DAILY_DIR, year, month)
+    local dir = string.format("%s/%s/%02d", DAILY_DIR, year, month)
     local filepath = string.format("%s/%s.md", dir, day)
 
     if vim.fn.isdirectory(dir) == 0 then
