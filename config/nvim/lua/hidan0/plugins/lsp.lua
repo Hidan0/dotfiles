@@ -112,6 +112,7 @@ return {
                 "rust_analyzer",
                 "tinymist",
                 "marksman",
+                "zls",
             })
         end,
     },
