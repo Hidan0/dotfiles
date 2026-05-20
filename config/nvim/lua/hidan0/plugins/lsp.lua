@@ -111,7 +111,7 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "tinymist",
-                "marksman",
+                "markdown_oxide",
                 "zls",
             })
         end,

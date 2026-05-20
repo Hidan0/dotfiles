@@ -30,6 +30,9 @@ return {
             explorer = { enabled = false },
             image = {
                 enabled = true,
+                doc = {
+                    enabled = false,
+                },
                 math = {
                     enabled = true,
                     latex = {

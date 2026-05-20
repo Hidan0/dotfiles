@@ -201,7 +201,7 @@ local function process_task(process_lines)
     local bufnr = vim.api.nvim_get_current_buf()
     local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t:r")
 
-    local parser = require("nvim-treesitter.parsers").get_parser(bufnr, "markdown")
+    local parser = vim.treesitter.get_parser(bufnr, "markdown")
     if not parser then
         vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
         return
@@ -439,7 +439,7 @@ local function move_daily_tasks_to_current_day()
         local bufrn = vim.fn.bufadd(filepath)
         vim.fn.bufload(filepath)
 
-        local parser = require("nvim-treesitter.parsers").get_parser(bufrn, "markdown")
+        local parser = vim.treesitter.get_parser(bufrn, "markdown")
         if not parser then
             vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
             return

@@ -4,7 +4,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         version = "*",
         config = function()
-            require("mini.pairs").setup()
+            -- require("mini.pairs").setup()
         end,
     },
     {

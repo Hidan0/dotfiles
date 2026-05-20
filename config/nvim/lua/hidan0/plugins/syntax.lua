@@ -1,42 +1,49 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main", -- explicitly target the new rewritten branch
         build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "json",
-                    "javascript",
-                    "typescript",
-                    "tsx",
-                    "yaml",
-                    "html",
-                    "css",
-                    "scss",
-                    "markdown",
-                    "markdown_inline",
-                    "bash",
-                    "lua",
-                    "vim",
-                    "dockerfile",
-                    "gitignore",
-                    "rust",
-                    "go",
-                    "c",
-                    "latex",
-                    "typst",
-                    -- "norg",
-                    -- "norg_meta",
-                },
-                sync_install = false,
-                auto_install = false,
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = true,
-                },
-                indent = {
-                    enable = false,
-                },
+        init = function()
+            -- Parser installation (replaces ensure_installed)
+            local parsers = {
+                "json",
+                "javascript",
+                "typescript",
+                "tsx",
+                "yaml",
+                "html",
+                "css",
+                "scss",
+                "markdown",
+                "markdown_inline",
+                "bash",
+                "lua",
+                "vim",
+                "dockerfile",
+                "gitignore",
+                "rust",
+                "go",
+                "c",
+                "latex",
+                "typst",
+            }
+
+            local installed = require("nvim-treesitter.config").get_installed()
+            local to_install = vim.iter(parsers)
+                :filter(function(p)
+                    return not vim.tbl_contains(installed, p)
+                end)
+                :totable()
+
+            if #to_install > 0 then
+                require("nvim-treesitter").install(to_install)
+            end
+
+            -- Enable highlighting and (optionally) indentation per filetype
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    pcall(vim.treesitter.start)
+                end,
             })
         end,
     },
