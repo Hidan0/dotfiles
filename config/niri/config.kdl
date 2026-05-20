@@ -43,6 +43,11 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+cursor {
+	xcursor-theme "BreezeX-RosePine-Linux"
+	hide-after-inactive-ms 10000
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Layout
