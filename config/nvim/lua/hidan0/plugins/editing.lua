@@ -39,6 +39,11 @@ return {
             local conform = require("conform")
 
             conform.setup({
+                formatters = {
+                    typstyle = {
+                        prepend_args = { "-l", "88", "--wrap-text" },
+                    },
+                },
                 formatters_by_ft = {
                     javascript = { "prettier" },
                     typescript = { "prettier" },
