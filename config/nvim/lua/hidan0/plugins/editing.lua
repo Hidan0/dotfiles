@@ -1,13 +1,5 @@
 return {
     {
-        "nvim-mini/mini.pairs",
-        event = { "BufReadPre", "BufNewFile" },
-        version = "*",
-        config = function()
-            -- require("mini.pairs").setup()
-        end,
-    },
-    {
         "nvim-mini/mini.surround",
         event = { "BufReadPre", "BufNewFile" },
         version = "*",
