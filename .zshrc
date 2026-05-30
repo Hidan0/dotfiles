@@ -31,8 +31,6 @@ export VISUAL='nvim'
 
 export ZK_NOTEBOOK_DIR="$HOME/notes/zet"
 
-export TERM='alacritty'
-
 # gruvbox
 # export FZF_DEFAULT_OPTS=" \
 # --color=bg+:#1d2021,bg:#141617,spinner:#7daea3,hl:#ea6962 \
