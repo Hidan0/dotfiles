@@ -381,67 +381,6 @@ local function cancel_task(lines, backlink)
     end
 end
 
-local function headlines()
-    local bufrn = vim.api.nvim_get_current_buf()
-
-    local lines = vim.api.nvim_buf_get_lines(bufrn, 0, -1, false)
-
-    if not lines then
-        return
-    end
-
-    local heading_regex = "^(#+)%s+(.+)"
-
-    local items = {}
-    local idx = 0
-
-    for row, line in ipairs(lines) do
-        local hashes, title = string.match(line, heading_regex, 0)
-
-        if hashes and title then
-            local level = #hashes
-            local col = level + 1 -- hashes + space
-
-            table.insert(items, {
-                idx = idx,
-                pos = { row, col },
-                file = vim.api.nvim_buf_get_name(bufrn),
-                text = title,
-                level = level,
-            })
-
-            idx = idx + 1
-        end
-    end
-
-    return Snacks.picker({
-        title = "Headlines",
-        items = items,
-        format = function(item, _)
-            -- local prefix = item.level == 1 and "■ " or string.rep("  ", item.level - 1) .. "▪ "
-
-            local indent = string.rep("  ", item.level - 1)
-
-            local level_colors = {
-                "@markup.heading.1.markdown",
-                "@markup.heading.2.markdown",
-                "@markup.heading.3.markdown",
-                "@markup.heading.4.markdown",
-                "@markup.heading.5.markdown",
-                "@markup.heading.6.markdown",
-            }
-
-            local hl_group = level_colors[item.level] or "@markup.heading.markdown"
-
-            local icon = item.level == 1 and "■" or "▪"
-            return {
-                { indent, "Comment" },
-                { icon .. " " .. item.text, hl_group },
-            }
-        end,
-    })
-end
-
 local function move_daily_tasks_to_current_day()
     open_daily_note()
     local daily_bufrn = vim.api.nvim_get_current_buf() -- daily
@@ -632,13 +571,6 @@ vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the i
 
 vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
 vim.keymap.set("n", "<leader>nsi", find_hubs, { desc = "Find MOC & index notes" })
-
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = "*.md",
-    callback = function()
-        vim.keymap.set("n", "<leader>nsh", headlines, { desc = "Search headlines", buffer = true })
-    end,
-})
 
 -- LOCAL KEYMAPS
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
