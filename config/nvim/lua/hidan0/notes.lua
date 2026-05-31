@@ -32,6 +32,65 @@ local function uuid()
     return vim.fn.system("uuidgen"):gsub("%s+", "")
 end
 
+--- Returns true if `path` is a readable file.
+local function exists(path)
+    return vim.fn.filereadable(path) == 1
+end
+
+--- Returns true if `path` is a directory.
+local function is_dir(path)
+    return vim.fn.isdirectory(path) == 1
+end
+
+--- Runs ripgrep with `args`. Returns the matching lines (an empty list when
+--- there are no matches), or `nil` plus an error message on a ripgrep failure.
+local function rg(args)
+    local lines = vim.fn.systemlist(vim.list_extend({ "rg" }, args))
+    local code = vim.v.shell_error
+    if code == 1 then
+        return {} -- no matches is not an error
+    elseif code ~= 0 then
+        return nil, table.concat(lines, "\n")
+    end
+    return lines
+end
+
+--- Collects the [s_row, e_row) ranges of the unchecked task list items in
+--- `bufnr` (0-based, Treesitter convention). Returns `nil` on a parser or query
+--- error (already notified).
+local function unchecked_task_ranges(bufnr)
+    local parser = vim.treesitter.get_parser(bufnr, "markdown")
+    if not parser then
+        vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
+        return nil
+    end
+    local tree = parser:parse()[1]
+
+    local ok, q = pcall(vim.treesitter.query.parse, "markdown", UNCHECKED_TASK_QUERY)
+    if not ok then
+        vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+        return nil
+    end
+
+    local ranges = {}
+    for _, node in q:iter_captures(tree:root(), bufnr) do
+        local s_row, _, e_row, _ = node:range()
+        table.insert(ranges, { s_row = s_row, e_row = e_row })
+    end
+    return ranges
+end
+
+--- Returns the 1-based index of the first line in `lines` matching the Lua
+--- pattern `pat`, or `nil`.
+local function heading_row(lines, pat)
+    for i, line in ipairs(lines) do
+        if line:match(pat) then
+            return i
+        end
+    end
+    return nil
+end
+
 local Daily = {
     TODAY = "today",
     TOMORROW = "tomorrow",
@@ -57,11 +116,11 @@ local function daily_note(when)
     local dir = string.format("%s/%s/%02d", DAILY_DIR, year, month)
     local filepath = string.format("%s/%s.md", dir, day)
 
-    if vim.fn.isdirectory(dir) == 0 then
+    if not is_dir(dir) then
         vim.fn.mkdir(dir, "p")
     end
 
-    if vim.fn.filereadable(filepath) == 0 then
+    if not exists(filepath) then
         local template = read_all_file(TEMPLATE_DIR .. "/nvim_daily_note_tp.md")
         local content = string.format(template, uuid(), day, date.hour, date.min)
 
@@ -83,7 +142,7 @@ end
 local function new_note()
     local date = os.date("%Y-%m-%d")
 
-    if not vim.fn.isdirectory(INBOX_DIR) then
+    if not is_dir(INBOX_DIR) then
         vim.notify("Notes inbox directory not found", vim.log.levels.WARN)
         return
     end
@@ -95,7 +154,7 @@ local function new_note()
         end
         local filepath = string.format("%s/%s.md", INBOX_DIR, notename)
 
-        if vim.fn.filereadable(filepath) then
+        if not exists(filepath) then
             local template = read_all_file(TEMPLATE_DIR .. "/nvim_note_tp.md")
             local content = string.format(template, uuid(), date, notename)
 
@@ -103,8 +162,7 @@ local function new_note()
             file:write(content)
             file:close()
         else
-            vim.notify("Failed to create new note", vim.log.levels.WARN)
-            return
+            vim.notify("Note already exists", vim.log.levels.WARN)
         end
 
         vim.cmd("edit " .. vim.fn.fnameescape(filepath))
@@ -160,12 +218,9 @@ end
 
 local function find_unchecked_todos()
     local query = "\\- \\[ \\]"
-    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", "--glob", "!Spesa.*", query, BASE_DIR }
-
-    local res = vim.fn.systemlist(cmd)
-
-    if vim.v.shell_error ~= 0 then
-        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+    local res, err = rg({ "--vimgrep", "--no-heading", "-tmd", "--glob", "!Spesa.*", query, BASE_DIR })
+    if not res then
+        vim.notify("ripgrep error: " .. err, vim.log.levels.ERROR)
         return
     end
 
@@ -201,21 +256,13 @@ local function process_task(process_lines)
     local bufnr = vim.api.nvim_get_current_buf()
     local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t:r")
 
-    local parser = vim.treesitter.get_parser(bufnr, "markdown")
-    if not parser then
-        vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
-        return
-    end
-    local tree = parser:parse()[1]
-
-    local ok, q = pcall(vim.treesitter.query.parse, "markdown", UNCHECKED_TASK_QUERY)
-    if not ok then
-        vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+    local ranges = unchecked_task_ranges(bufnr)
+    if not ranges then
         return
     end
 
-    for _, node in q:iter_captures(tree:root(), bufnr) do
-        local s_row, _, e_row, _ = node:range()
+    for _, r in ipairs(ranges) do
+        local s_row, e_row = r.s_row, r.e_row
 
         if row >= s_row and row < e_row then
             local lines = vim.api.nvim_buf_get_lines(bufnr, s_row, e_row, false)
@@ -264,15 +311,11 @@ local function process_task(process_lines)
             local daily_lines = vim.api.nvim_buf_get_lines(daily_bufnr, 0, -1, false)
 
             -- Find the "## Completed Tasks" heading
-            local insert_position = nil
-            for i, line in ipairs(daily_lines) do
-                if line:match("^##%s+Completed%s+Tasks") then
-                    insert_position = i
-                    -- Skip blank lines under the title
-                    while insert_position < #daily_lines and daily_lines[insert_position + 1]:match("^%s*$") do
-                        insert_position = insert_position + 1
-                    end
-                    break
+            local insert_position = heading_row(daily_lines, "^##%s+Completed%s+Tasks")
+            if insert_position then
+                -- Skip blank lines under the title
+                while insert_position < #daily_lines and daily_lines[insert_position + 1]:match("^%s*$") do
+                    insert_position = insert_position + 1
                 end
             end
 
@@ -405,13 +448,8 @@ local function move_daily_tasks_to_current_day()
 
     local tasks_h_rgx = "^(#+)%s+Tasks"
 
-    local tasks_section_row = nil
-    for row, line in ipairs(vim.api.nvim_buf_get_lines(daily_bufrn, 0, -1, false)) do
-        if string.match(line, tasks_h_rgx) then
-            tasks_section_row = row + 1
-            break
-        end
-    end
+    local hr = heading_row(vim.api.nvim_buf_get_lines(daily_bufrn, 0, -1, false), tasks_h_rgx)
+    local tasks_section_row = hr and hr + 1 or nil
 
     if not tasks_section_row then
         vim.notify("Can not find `Tasks` section in current note", vim.log.levels.ERROR)
@@ -421,16 +459,14 @@ local function move_daily_tasks_to_current_day()
     -- Search tasks
     local query = "\\- \\[ \\]"
     local filterout_daily = "!" .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(daily_bufrn), ":t")
-    local cmd = { "rg", "-l", "-tmd", "-g", filterout_daily, query, DAILY_DIR }
+    local res, err = rg({ "-l", "-tmd", "-g", filterout_daily, query, DAILY_DIR })
 
-    local res = vim.fn.systemlist(cmd)
-
-    if vim.v.shell_error ~= 0 then
-        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+    if not res then
+        vim.notify("ripgrep error: " .. err, vim.log.levels.ERROR)
         return
     end
 
-    if not res then
+    if vim.tbl_isempty(res) then
         vim.notify("No unchecked tasks found", vim.log.levels.INFO)
         return
     end
@@ -439,28 +475,18 @@ local function move_daily_tasks_to_current_day()
         local bufrn = vim.fn.bufadd(filepath)
         vim.fn.bufload(filepath)
 
-        local parser = vim.treesitter.get_parser(bufrn, "markdown")
-        if not parser then
-            vim.notify("Failed to parse markdown", vim.log.levels.ERROR)
-            return
-        end
-        local tree = parser:parse()[1]
-
-        local ok, q = pcall(vim.treesitter.query.parse, "markdown", UNCHECKED_TASK_QUERY)
-        if not ok then
-            vim.notify("Failed to parse Tree-sitter query: " .. q, vim.log.levels.ERROR)
+        local ranges = unchecked_task_ranges(bufrn)
+        if not ranges then
             return
         end
 
         local local_tasks = {}
-        for _, node in q:iter_captures(tree:root(), bufrn) do
-            local s_row, _, e_row, _ = node:range()
-
-            local lines = vim.api.nvim_buf_get_lines(bufrn, s_row, e_row, false)
+        for _, r in ipairs(ranges) do
+            local lines = vim.api.nvim_buf_get_lines(bufrn, r.s_row, r.e_row, false)
             table.insert(local_tasks, {
                 lines = lines,
-                start_row = s_row,
-                end_row = e_row,
+                start_row = r.s_row,
+                end_row = r.e_row,
             })
         end
 
@@ -493,14 +519,11 @@ local function move_daily_tasks_to_current_day()
     end)
 end
 
-local function find_index_notes()
-    local query = "^type: index"
-    local cmd = { "rg", "-l", "-tmd", query, BASE_DIR }
-
-    local res = vim.fn.systemlist(cmd)
-
-    if vim.v.shell_error ~= 0 then
-        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
+local function find_hubs()
+    local query = "^type: (index|moc)$"
+    local res, err = rg({ "-l", "-tmd", query, BASE_DIR })
+    if not res then
+        vim.notify("ripgrep error: " .. err, vim.log.levels.ERROR)
         return
     end
 
@@ -514,7 +537,7 @@ local function find_index_notes()
     end
 
     return Snacks.picker({
-        title = "Index Notes",
+        title = "MOC & Index",
         items = items,
         format = function(item, _)
             return { { item.text } }
@@ -532,14 +555,9 @@ local function display_backlinks()
     fname = escape_regex(fname)
 
     local query = "\\[\\[" .. fname .. "\\]\\]"
-    local cmd = { "rg", "--vimgrep", "--no-heading", "-tmd", query, BASE_DIR }
-
-    local res = vim.fn.systemlist(cmd)
-
-    if vim.v.shell_error == 2 then
-        vim.notify("ripgrep error: " .. table.concat(res, "\n"), vim.log.levels.ERROR)
-        return
-    elseif vim.v.shell_error == 1 then
+    local res, err = rg({ "--vimgrep", "--no-heading", "-tmd", query, BASE_DIR })
+    if not res then
+        vim.notify("ripgrep error: " .. err, vim.log.levels.ERROR)
         return
     end
 
@@ -613,7 +631,7 @@ end, { desc = "Create\\Open yesterday daily note" })
 vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the inbox" })
 
 vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
-vim.keymap.set("n", "<leader>nsi", find_index_notes, { desc = "Find index notes" })
+vim.keymap.set("n", "<leader>nsi", find_hubs, { desc = "Find MOC & index notes" })
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     pattern = "*.md",
