@@ -1,13 +1,3 @@
--- Fix for nvim overwriting tab opts
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt.shiftwidth = 2
-        vim.opt.tabstop = 2
-        vim.opt.softtabstop = 2
-    end,
-})
-
 local BASE_DIR = vim.fn.expand("~/notes/second_brain")
 local INBOX_DIR = BASE_DIR .. "/0_Inbox"
 local DAILY_DIR = BASE_DIR .. "/1_Daily"
@@ -169,51 +159,18 @@ local function new_note()
     end)
 end
 
--- split string `s` at first occurrence of `c`
-local function split_at(s, c)
-    local pos = string.find(s, c)
-
-    if pos == nil then
-        return nil
-    end
-
-    local left = string.sub(s, 0, pos - 1)
-    local right = string.sub(s, pos + 1)
-
-    return { left = left, right = right }
-end
-
 local function process_ripgrep_line(line)
     -- file:row:col:grepped_string
-
-    local split = split_at(line, ":")
-    if not split then
-        vim.notify("Failed to parse ripgrep output [file]:\n" .. line, vim.log.levels.ERROR)
+    local file, row, col, text = line:match("^(.-):(%d+):(%d+):(.*)$")
+    if not file then
+        vim.notify("Failed to parse ripgrep output:\n" .. line, vim.log.levels.ERROR)
         return nil
     end
 
-    local file = split.left
+    -- strip the unchecked task marker from the text
+    text = text:gsub("%- %[ %]%s+", "")
 
-    split = split_at(split.right, ":")
-    if not split then
-        vim.notify("Failed to parse ripgrep output [row]:\n" .. line, vim.log.levels.ERROR)
-        return nil
-    end
-
-    local row = tonumber(split.left)
-
-    split = split_at(split.right, ":")
-    if not split then
-        vim.notify("Failed to parse ripgrep output [col]:\n" .. line, vim.log.levels.ERROR)
-        return nil
-    end
-
-    local col = tonumber(split.left)
-
-    -- clean text
-    local text = string.gsub(split.right, "%- %[ %]%s+", "")
-
-    return { file = file, row = row, col = col, text = text }
+    return { file = file, row = tonumber(row), col = tonumber(col), text = text }
 end
 
 local function find_unchecked_todos()
@@ -579,12 +536,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         vim.keymap.set("n", "<localleader>td", function()
             process_task(complete_task)
         end, { desc = "Set task as completed", buffer = true })
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = BASE_DIR .. "/*.md",
-    callback = function()
         vim.keymap.set("n", "<localleader>tc", function()
             process_task(cancel_task)
         end, { desc = "Set task as cancelled", buffer = true })
