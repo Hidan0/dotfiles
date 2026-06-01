@@ -106,6 +106,15 @@ return {
                 },
             })
 
+            -- markdown_oxide logs every operation via window/logMessage, which
+            -- bloated ~/.local/state/nvim/lsp.log to ~14GB. Drop its log
+            -- messages (this client only) to keep the log from ballooning.
+            vim.lsp.config("markdown_oxide", {
+                handlers = {
+                    ["window/logMessage"] = function() end,
+                },
+            })
+
             -- Enable language servers
             vim.lsp.enable({
                 "lua_ls",
