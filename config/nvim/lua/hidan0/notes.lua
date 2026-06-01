@@ -515,6 +515,100 @@ local function display_backlinks()
     end
 end
 
+-- TAGS
+
+--- Collects frontmatter tags (block form) across the vault, with a per-tag note
+--- count. Returns a table { [tag] = count }, or nil on a ripgrep error.
+local function collect_tags()
+    -- Multiline match of the YAML `tags:` block; only its `- item` lines are
+    -- kept, so body list items can't leak in. `tags: []` (no items) won't match.
+    local res = rg({ "-oUI", "-tmd", "(?m)^tags:\\n(?:[ \\t]+- .+\\n?)+", BASE_DIR })
+    if not res then
+        return nil
+    end
+
+    local counts = {}
+    for _, line in ipairs(res) do
+        local tag = line:match("^%s+%-%s+(.+)$")
+        if tag then
+            tag = vim.trim(tag)
+            if tag ~= "" and not tag:find("[<>%[%]]") then
+                counts[tag] = (counts[tag] or 0) + 1
+            end
+        end
+    end
+    return counts
+end
+
+--- Picker of the notes whose frontmatter tags include `tag`.
+local function notes_with_tag(tag)
+    local query = "(?m)^tags:\\n(?:[ \\t]+- .+\\n)*?[ \\t]+- " .. tag .. "$"
+    local res, err = rg({ "-lU", "-tmd", query, BASE_DIR })
+    if not res then
+        vim.notify("ripgrep error: " .. err, vim.log.levels.ERROR)
+        return
+    end
+
+    local items = {}
+    for idx, file in ipairs(res) do
+        table.insert(items, {
+            idx = idx,
+            file = file,
+            text = vim.fn.fnamemodify(file, ":t:r"),
+        })
+    end
+
+    return Snacks.picker({
+        title = "Notes tagged #" .. tag,
+        items = items,
+        format = function(item, _)
+            return { { item.text } }
+        end,
+    })
+end
+
+--- Two-stage tag picker: all frontmatter tags (with counts) -> notes for the
+--- chosen tag.
+local function find_tags()
+    local counts = collect_tags()
+    if not counts then
+        return
+    end
+
+    local items = {}
+    for tag, count in pairs(counts) do
+        table.insert(items, { tag = tag, count = count, text = tag })
+    end
+    table.sort(items, function(a, b)
+        if a.count ~= b.count then
+            return a.count > b.count
+        end
+        return a.tag < b.tag
+    end)
+    for i, item in ipairs(items) do
+        item.idx = i
+    end
+
+    return Snacks.picker({
+        title = "Tags",
+        items = items,
+        format = function(item, _)
+            return {
+                { item.text },
+                { "  (" .. item.count .. ")", "Comment" },
+            }
+        end,
+        confirm = function(picker, item)
+            picker:close()
+            if item then
+                vim.schedule(function()
+                    notes_with_tag(item.tag)
+                end)
+            end
+        end,
+    })
+end
+
 -- KEYMAPS
 vim.keymap.set("n", "<leader>nt", open_daily_note, { desc = "Create\\Open today daily note" })
 vim.keymap.set("n", "<leader>nT", function()
@@ -528,6 +622,7 @@ vim.keymap.set("n", "<leader>nn", new_note, { desc = "Create a new note in the i
 
 vim.keymap.set("n", "<leader>nst", find_unchecked_todos, { desc = "Find all tasks" })
 vim.keymap.set("n", "<leader>nsi", find_hubs, { desc = "Find MOC & index notes" })
+vim.keymap.set("n", "<leader>nsg", find_tags, { desc = "Find tags" })
 
 -- LOCAL KEYMAPS
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {

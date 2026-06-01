@@ -1,3 +1,17 @@
+-- Snacks renders markdown previews by starting a full treesitter parse on the
+-- preview buffer. For large notes that parse is slow and made the picker
+-- sluggish to scroll/close. Snacks marks those buffers with a compound
+-- filetype (`markdown.snacks_picker_preview`), so skip treesitter only there;
+-- real markdown files (ft `markdown`) and code previews keep highlighting.
+local ts_start = vim.treesitter.start
+vim.treesitter.start = function(bufnr, lang)
+    local buf = (not bufnr or bufnr == 0) and vim.api.nvim_get_current_buf() or bufnr
+    if lang == "markdown" and vim.bo[buf].filetype:find("snacks_picker_preview", 1, true) then
+        return
+    end
+    return ts_start(bufnr, lang)
+end
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
